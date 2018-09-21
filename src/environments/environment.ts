@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyCz4GWhlKNuabBE7toULpjp_PdW30Mtn7g',
+    authDomain: 'falkenheim-handball.firebaseapp.com',
+    databaseURL: 'https://falkenheim-handball.firebaseio.com',
+    projectId: 'falkenheim-handball',
+    storageBucket: '',
+    messagingSenderId: '705013052036'
+  }
 };
 
 /*

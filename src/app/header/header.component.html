@@ -1,3 +1,18 @@
-<p>
-  header works!
-</p>
+<div class="header">
+  <div class="header-container">
+    <div class="header-image__container">
+      <a [routerLink]="''">
+        <img class="custom-logo" src="../../assets/img/logo_tsv_falkenheim.png" alt="Falkenheim Logo">
+      </a>
+    </div>
+    <div class="header-link__container">
+      <a [routerLink]="'/team'" class="header-item header-item--link">Team</a>
+      <a [routerLink]="'/season'" class="header-item header-item--link">Saison</a>
+      <a [routerLink]="'/history'" class="header-item header-item--link">Historie</a>
+
+    </div>
+    <div class="header-handball__container">
+      <p class="header-item">Abteilung Handball</p>
+    </div>
+  </div>
+</div>
