@@ -6,13 +6,15 @@
       </a>
     </div>
     <div class="header-link__container">
-      <a [routerLink]="'/team'" class="header-item header-item--link">Team</a>
-      <a [routerLink]="'/season'" class="header-item header-item--link">Saison</a>
-      <a [routerLink]="'/history'" class="header-item header-item--link">Historie</a>
+      <a [routerLink]="'/home'" class="header-item header-item--link" [routerLinkActive]="['active']">Home</a>
+      <a [routerLink]="'/team'" class="header-item header-item--link" [routerLinkActive]="['active']">Team</a>
+      <a [routerLink]="'/season'" class="header-item header-item--link" [routerLinkActive]="['active']">Saison</a>
+      <a [routerLink]="'/history'" class="header-item header-item--link" [routerLinkActive]="['active']">Historie</a>
 
     </div>
     <div class="header-handball__container">
-      <p class="header-item">Abteilung Handball</p>
+      <img src="../../assets/img/handball.png" alt="Handball Logo stilisiert">
+      <!--Icon made by Freepik from www.flaticon.com-->
     </div>
   </div>
 </div>

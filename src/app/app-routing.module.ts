@@ -1,11 +1,13 @@
 import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {ContactComponent} from './contact/contact.component';
+import {HomeComponent} from './content/home/home.component';
 
 const appRoutes: Routes = [
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
   {
     path: 'home',
-    loadChildren: './content/content.module#ContentModule',
+    component: HomeComponent,
   },
   {path: 'contact', component: ContactComponent},
 ];

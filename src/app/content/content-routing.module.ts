@@ -6,11 +6,12 @@ import {SeasonComponent} from './season/season.component';
 import {TeamComponent} from './team/team.component';
 
 const contentRoutes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: 'homee', component: HomeComponent},
   {path: 'history', component: HistoryComponent},
   {path: 'season', component: SeasonComponent},
   {path: 'team', component: TeamComponent},
 ];
+
 
 @NgModule({
   imports: [
