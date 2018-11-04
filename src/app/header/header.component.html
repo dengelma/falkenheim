@@ -6,15 +6,39 @@
       </a>
     </div>
     <div class="header-link__container">
-      <a [routerLink]="'/home'" class="header-item header-item--link" [routerLinkActive]="['active']">Home</a>
-      <a [routerLink]="'/team'" class="header-item header-item--link" [routerLinkActive]="['active']">Team</a>
-      <a [routerLink]="'/season'" class="header-item header-item--link" [routerLinkActive]="['active']">Saison</a>
-      <a [routerLink]="'/history'" class="header-item header-item--link" [routerLinkActive]="['active']">Historie</a>
+      <div class="link-container">
+        <a [routerLink]="'/home'" class="header-item header-item--link" [routerLinkActive]="['active']">Home</a>
+      </div>
+      <div class="link-container">
+        <a [routerLink]="'/team'" class="header-item header-item--link" [routerLinkActive]="['active']">Team</a>
+      </div>
+      <div class="link-container" (click)="openLinkContainer(0)">
+        <a class="header-item header-item--link" [routerLinkActive]="['active']">Saison</a>
+        <div class="dropdown" [class.dropdown--open]="linkContainer[0]"></div>
+        <ul class="dropdown-content" [class.display-none]="!linkContainer[0]">
+          <li>
+            <a [routerLink]="'/season/standings'" class="header-item header-item--link" [routerLinkActive]="['active']">Tabelle</a>
+          </li>
+          <li>
+            <a [routerLink]="'/season/fixtures'" class="header-item header-item--link" [routerLinkActive]="['active']">Spielplan</a>
+          </li>
+          <li>
+            <a [routerLink]="'/season/match-report'" class="header-item header-item--link" [routerLinkActive]="['active']">Spielberichte</a>
+          </li>
+        </ul>
+      </div>
+      <div class="link-container" (click)="openLinkContainer(1)">
+        <a [routerLink]="'/history'" class="header-item header-item--link" [routerLinkActive]="['active']">Sponsoren
+          & Partner</a>
+        <!-- <div class="dropdown" [class.dropdown--open]="linkContainer[1]"></div>
+        <ul class="dropdown-content" [class.display-none]="!linkContainer[1]">
+
+        </ul> -->
+      </div>
 
     </div>
     <div class="header-handball__container">
-      <img src="../../assets/img/handball.png" alt="Handball Logo stilisiert">
-      <!--Icon made by Freepik from www.flaticon.com-->
+      Dein Weg ins Team
     </div>
   </div>
 </div>

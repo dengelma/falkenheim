@@ -15,7 +15,7 @@ import {AngularFireModule} from '@angular/fire';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ContactComponent
+    ContactComponent,
   ],
   imports: [
     BrowserModule,

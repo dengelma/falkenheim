@@ -20,9 +20,12 @@
 .header-handball__container {
   grid-area: placeholder;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-end;
+  padding-right: 16px;
   align-items: center;
+  color: #ffffff;
 }
+
 .header-link__container {
   font-size: 32px;
   grid-area: links;
@@ -33,7 +36,7 @@
 
 .header-item {
   color: white;
-  transition: all 350ms ease-in-out ;
+  transition: all 350ms ease-in-out;
 }
 
 .header-item--link:hover {
@@ -50,4 +53,48 @@
 
 .active {
   color: #ff0012;
+}
+
+.link-container:hover > div .link-container:hover a {
+  color: #ff0012;
+  border-color: #ff0012;
+  cursor: pointer;
+}
+
+.dropdown {
+  border: #ffffff solid 3px;
+  height: 12px;
+  width: 12px;
+  position: absolute;
+  border-left: 0;
+  border-bottom: 0;
+  -webkit-transform: rotateZ(135deg) translateY(-13px);
+  transform: rotateZ(135deg) translateY(-13px);
+  display: inline;
+  transition: all 350ms ease-in-out;
+}
+.dropdown--open {
+  transform: rotateZ(-45deg) translateY(17px) translateX(-4px);
+  border-color: #ff0012;
+}
+
+.dropdown-content {
+  background: black;
+  color: white;
+  list-style: none;
+  padding: 0 8px;
+  position: absolute;
+}
+
+li {
+  margin: 8px 0;
+  transition: all 350ms ease-in-out;
+}
+
+li:hover {
+  color: #ff0012;
+}
+
+.display-none {
+  display: none;
 }
