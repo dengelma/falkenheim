@@ -9,6 +9,7 @@ import { ContentRoutingModule } from './content-routing.module';
 import { StandingsComponent } from './standings/standings.component';
 import { MatchReportComponent } from './match-report/match-report.component';
 import { FixturesComponent } from './fixtures/fixtures.component';
+import { JoinComponent } from './join/join.component';
 
 @NgModule({
   imports: [CommonModule, ContentRoutingModule],
@@ -20,7 +21,8 @@ import { FixturesComponent } from './fixtures/fixtures.component';
     HomeComponent,
     StandingsComponent,
     MatchReportComponent,
-    FixturesComponent
+    FixturesComponent,
+    JoinComponent
   ]
 })
 export class ContentModule {}

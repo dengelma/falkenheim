@@ -1,3 +1,4 @@
+import { JoinComponent } from './join/join.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -11,6 +12,7 @@ import { TeamComponent } from './team/team.component';
 
 const contentRoutes: Routes = [
   { path: 'history', component: HistoryComponent },
+  { path: 'join', component: JoinComponent },
   {
     path: 'season',
     component: SeasonComponent,
