@@ -27,7 +27,7 @@
 }
 
 .header-link__container {
-  font-size: 32px;
+  font-size: 28px;
   grid-area: links;
   display: flex;
   justify-content: space-evenly;
@@ -55,9 +55,13 @@
   color: #ff0012;
 }
 
-.link-container:hover > div .link-container:hover a {
+/*.link-container:hover > div .link-container:hover a {
   color: #ff0012;
   border-color: #ff0012;
+  cursor: pointer;
+}*/
+
+.link-container {
   cursor: pointer;
 }
 
@@ -75,7 +79,6 @@
 }
 .dropdown--open {
   transform: rotateZ(-45deg) translateY(17px) translateX(-4px);
-  border-color: #ff0012;
 }
 
 .dropdown-content {

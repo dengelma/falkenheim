@@ -3,35 +3,41 @@
 <div class="card">
   <h2>Was du wissen musst</h2>
   <div class="card-information time">
-    Wann trainieren wir:
+    <span class="question"><strong>Wann trainieren wir:</strong></span>
     <span>Jeden Montag um 20Uhr (außer in den Schulferien, weil Halle geschlossen)
     </span>
   </div>
   <div class="card-information location">
-    Wo trainieren wir:
+    <span class="question"><strong>Wo trainieren wir:</strong></span>
     <span>Geschwister-Schöll Realschule Nürnberg</span>
   </div>
   <div class="card-information more-information">
-    Weitere Informationen:
+    <span class="question"><strong>Weitere Informationen:</strong></span>
     <span>Du hast Bock auf coole Leute und einen super Sport? Dann melde dich doch
       gleich bei uns an!</span>
   </div>
 </div>
 
 <div class="card">
-  <h2>Deine Kontaktdaten</h2>
+  <h2>Du willst mitmachen? Dann gib uns deine Kontaktdaten!</h2>
   <form action="submit">
     <div class="card-information name">
-      <label for="name">Dein Name?</label>
+      <label class="text-input--label" for="name">Dein Name</label>
       <input class="custom-input" type="text" id="name">
     </div>
     <div class="card-information mail">
-      <label for="mail">Wie können wir dich schriftlich erreichen?</label>
+      <label class="text-input--label" for="mail">Deine Mail</label>
       <input class="custom-input" type="email" id="mail">
     </div>
-    <div class="card-information  experience">
-      <label for="experience">Hast du bereits Erfahrung?</label>
-      <input type="checkbox" id="experience">
+    <div class="card-information experience">
+
+      <label class="container">Hast du bereits Erfahrung?
+        <input type="checkbox">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+    <div class="container btn-container">
+    <button class="falkenheim falkenheim-submit" type="submit">Falkenheimer werden</button>
     </div>
   </form>
 </div>

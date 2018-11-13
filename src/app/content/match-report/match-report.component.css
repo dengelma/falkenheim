@@ -1,0 +1,12 @@
+
+.more-information {
+  flex-direction: column;
+}
+
+.information {
+  margin: 16px 0;
+}
+
+.block-element {
+  display: block;
+}

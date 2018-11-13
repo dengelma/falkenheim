@@ -1,5 +1,5 @@
-<falkenheim-header></falkenheim-header>
-<div class="content">
-<router-outlet></router-outlet>
+<falkenheim-header [outsideClick]="contentClicked"></falkenheim-header>
+<div class="content" (click)="emitClick()">
+  <router-outlet></router-outlet>
 </div>
 <falkenheim-footer></falkenheim-footer>

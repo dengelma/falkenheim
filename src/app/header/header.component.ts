@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'falkenheim-header',
@@ -8,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
   linkContainer: boolean[] = [false, false];
 
-  constructor() {}
+  @Input() set outsideClick(val: boolean) {
+    for (let i = 0; i <= this.linkContainer.length - 1; i++) {
+      this.linkContainer[i] = false;
+    }
+  }
 
-  ngOnInit() {}
+  constructor() {
+  }
+
+  ngOnInit() {
+  }
 
   openLinkContainer(position: number) {
     for (let i = 0; i <= this.linkContainer.length - 1; i++) {

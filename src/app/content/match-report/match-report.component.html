@@ -1,3 +1,28 @@
-<p>
-  match-report works!
-</p>
+<div class="card" *ngFor="let matchReport of matchReports">
+  <h2>Spielbericht vom {{matchReport.date}}</h2>
+  <div class="card-information match">
+    <span><strong>{{matchReport.match}}</strong>
+    </span>
+  </div>
+  <div class="card-information report">
+    <span>{{matchReport.report}}</span>
+  </div>
+  <div class="card-information more-information">
+    <div class="information participating">
+      <strong>Dabei waren:</strong>
+      <p>{{matchReport.participating}}</p>
+    </div>
+    <div class="information prevented">
+      <strong>Verhindert waren:</strong>
+      <p>{{matchReport.prevented}}</p>
+    </div>
+    <div class="information supervisor">
+      <strong>Betreuer / Kampfgericht:</strong>
+      <p>{{matchReport.supervisor}}</p>
+    </div>
+    <div class="information link">
+      <strong>Offiziell genehmigter Spielberichtsbogen (externer Link)</strong>
+      <a target="_blank" class="block-element" href="{{matchReport.link}}">PDF</a>
+    </div>
+  </div>
+</div>

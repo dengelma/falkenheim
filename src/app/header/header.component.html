@@ -13,7 +13,7 @@
         <a [routerLink]="'/team'" class="header-item header-item--link" [routerLinkActive]="['active']">Team</a>
       </div>
       <div class="link-container" (click)="openLinkContainer(0)">
-        <a class="header-item header-item--link" [routerLinkActive]="['active']">Saison</a>
+        <a class="header-item" [routerLinkActive]="['active']">Saison</a>
         <div class="dropdown" [class.dropdown--open]="linkContainer[0]"></div>
         <ul class="dropdown-content" [class.display-none]="!linkContainer[0]">
           <li>
