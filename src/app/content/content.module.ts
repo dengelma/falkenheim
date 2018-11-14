@@ -10,6 +10,7 @@ import { StandingsComponent } from './standings/standings.component';
 import { MatchReportComponent } from './match-report/match-report.component';
 import { FixturesComponent } from './fixtures/fixtures.component';
 import { JoinComponent } from './join/join.component';
+import {MatchReportService} from '../services/match-report.service';
 
 @NgModule({
   imports: [CommonModule, ContentRoutingModule],
@@ -23,6 +24,9 @@ import { JoinComponent } from './join/join.component';
     MatchReportComponent,
     FixturesComponent,
     JoinComponent
+  ],
+  providers: [
+    MatchReportService
   ]
 })
 export class ContentModule {}

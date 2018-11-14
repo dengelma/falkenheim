@@ -1,5 +1,5 @@
-<div class="card" *ngFor="let matchReport of matchReports">
-  <h2>Spielbericht vom {{matchReport.date}}</h2>
+<div class="card" *ngFor="let matchReport of matchReports$ | async">
+  <h2>Spielbericht vom {{matchReport.date.seconds * 1000 | date:'medium'}}</h2>
   <div class="card-information match">
     <span><strong>{{matchReport.match}}</strong>
     </span>

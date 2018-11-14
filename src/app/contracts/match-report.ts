@@ -1,6 +1,6 @@
+
 export interface MatchReport {
-  date: string;
-  /*date: Date;*/
+  date: {seconds: number};
   match: string;
   report: string;
   participating: string;
