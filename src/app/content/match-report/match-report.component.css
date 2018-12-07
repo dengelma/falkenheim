@@ -1,4 +1,3 @@
-
 .more-information {
   flex-direction: column;
 }
@@ -9,4 +8,8 @@
 
 .block-element {
   display: block;
+}
+
+.match-report textarea {
+  min-height: 250px;
 }

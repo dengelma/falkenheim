@@ -1,28 +1,141 @@
-<div class="card" *ngFor="let matchReport of matchReports$ | async">
-  <h2>Spielbericht vom {{matchReport.date.seconds * 1000 | date:'medium'}}</h2>
+<div class="card" *ngFor="let matchReport of (matchReports$ | async)">
+  <h2>
+    Spielbericht vom {{ matchReport.date.seconds * 1000 | date: 'medium' }}
+  </h2>
   <div class="card-information match">
-    <span><strong>{{matchReport.match}}</strong>
+    <span
+      ><strong>{{ matchReport.match }}</strong>
     </span>
   </div>
   <div class="card-information report">
-    <span>{{matchReport.report}}</span>
+    <span>{{ matchReport.report }}</span>
   </div>
   <div class="card-information more-information">
     <div class="information participating">
       <strong>Dabei waren:</strong>
-      <p>{{matchReport.participating}}</p>
+      <p>{{ matchReport.participating }}</p>
     </div>
     <div class="information prevented">
       <strong>Verhindert waren:</strong>
-      <p>{{matchReport.prevented}}</p>
+      <p>{{ matchReport.prevented }}</p>
     </div>
     <div class="information supervisor">
       <strong>Betreuer / Kampfgericht:</strong>
-      <p>{{matchReport.supervisor}}</p>
+      <p>{{ matchReport.supervisor }}</p>
     </div>
-    <div class="information link">
+    <div *ngIf="matchReport.link !== ''" class="information link">
       <strong>Offiziell genehmigter Spielberichtsbogen (externer Link)</strong>
-      <a target="_blank" class="block-element" href="{{matchReport.link}}">PDF</a>
+      <a target="_blank" class="block-element" href="{{matchReport.link}}"
+        >PDF</a
+      >
     </div>
   </div>
+</div>
+
+<div class="card">
+  <h2>Neuer Spielbericht</h2>
+  <form (ngSubmit)="onSubmit()" #matchReportForm="ngForm">
+    <div class="card-information date">
+      <label class="text-input--label" for="date">Datum</label>
+      <input
+        class="custom-input"
+        type="datetime-local"
+        id="date"
+        required
+        [(ngModel)]="dateForForm"
+        name="date"
+        #date="ngModel"
+      />
+    </div>
+    <div class="card-information match">
+      <label class="text-input--label" for="match">Spielbegegnung</label>
+      <input
+        class="custom-input"
+        type="text"
+        id="match"
+        required
+        [(ngModel)]="matchReportToSubmit.match"
+        name="match"
+        #match
+      />
+      <div [hidden]="checkStatusOfElement(match)" class="alert alert-danger">
+        Es muss eine Spielbegegnung eingetragen werden
+      </div>
+    </div>
+    <div class="card-information match-report">
+      <label class="text-input--label" for="match-report">Spielbericht</label>
+      <textarea
+        class="custom-input"
+        name="match-report"
+        required
+        [(ngModel)]="matchReportToSubmit.report"
+        name="report"
+        #report
+      ></textarea>
+      <div [hidden]="checkStatusOfElement(report)" class="alert alert-danger">
+        Es muss ein Spielbericht eingetragen werden
+      </div>
+    </div>
+    <div class="card-information participating">
+      <label class="text-input--label" for="participating">Dabei waren</label>
+      <input
+        class="custom-input"
+        type="text"
+        id="participating"
+        required
+        [(ngModel)]="matchReportToSubmit.participating"
+        name="participating"
+        #participating
+      />
+      <div
+        [hidden]="checkStatusOfElement(participating)"
+        class="alert alert-danger"
+      >
+        Es müssen alle Teilnehmer eingetragen werden
+      </div>
+    </div>
+    <div class="card-information prevented">
+      <label class="text-input--label" for="prevented">Verhindert waren</label>
+      <input
+        class="custom-input"
+        type="text"
+        id="prevented"
+        name="prevented"
+        [(ngModel)]="matchReportToSubmit.prevented"
+      />
+    </div>
+    <div class="card-information supervisor">
+      <label class="text-input--label" for="supervisor"
+        >Betreuer / Kampfgericht</label
+      >
+      <input
+        class="custom-input"
+        type="text"
+        id="supervisor"
+        name="supervisor"
+        [(ngModel)]="matchReportToSubmit.supervisor"
+      />
+    </div>
+    <div class="card-information link">
+      <label class="text-input--label" for="link"
+        >Link zum offiziellen Spielberichtsbogen</label
+      >
+      <input
+        class="custom-input"
+        type="text"
+        id="link"
+        name="supervisor"
+        [(ngModel)]="matchReportToSubmit.link"
+      />
+    </div>
+    <div class="container btn-container">
+      <button
+        type="submit"
+        class="btn-falkenheim falkenheim-submit"
+        [class.disabled]="!matchReportForm.form.valid"
+      >
+        Neuen Spielbericht einstellen
+      </button>
+    </div>
+  </form>
 </div>
