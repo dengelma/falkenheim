@@ -16,11 +16,6 @@ a {
   text-decoration: none;
 }
 
-.content {
-  margin: 72px 64px;
-  min-height: 69.9%;
-}
-
 .card {
   width: 100%;
   border: 1px solid #000000;

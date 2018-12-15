@@ -23,23 +23,55 @@
 
 <div class="card">
   <h2>Du willst mitmachen? Dann gib uns deine Kontaktdaten!</h2>
-  <form action="submit">
+  <form (ngSubmit)="onSubmit()" #matchReportForm="ngForm">
     <div class="card-information name">
       <label class="text-input--label" for="name">Dein Name</label>
-      <input class="custom-input" type="text" id="name" />
+      <input
+        class="custom-input"
+        type="text"
+        id="name"
+        [(ngModel)]="joinRequestToSubmit.name"
+        required
+        name="name"
+        #name
+      />
+    </div>
+    <div [hidden]="checkStatusOfElement(name)" class="alert alert-danger">
+      Es muss ein Name eingetragen werden.
     </div>
     <div class="card-information mail">
       <label class="text-input--label" for="mail">Deine Mail</label>
-      <input class="custom-input" type="email" id="mail" />
+      <input
+        class="custom-input"
+        type="email"
+        id="mail"
+        [(ngModel)]="joinRequestToSubmit.mail"
+        required
+        name="mail"
+        #mail
+      />
+    </div>
+    <div [hidden]="checkStatusOfElement(mail)" class="alert alert-danger">
+      Es muss eine E-Mail-Adresse eingetragen werden.
     </div>
     <div class="card-information experience">
       <label class="container"
-        >Hast du bereits Erfahrung? <input type="checkbox" />
+        >Hast du bereits Erfahrung?
+        <input
+          type="checkbox"
+          [(ngModel)]="joinRequestToSubmit.experience"
+          id="experience-checkbox"
+          name="checkbox"
+        />
         <span class="checkmark"></span>
       </label>
     </div>
     <div class="container btn-container">
-      <button class="btn-falkenheim falkenheim-submit" type="submit">
+      <button
+        class="btn-falkenheim falkenheim-submit"
+        type="submit"
+        [class.disabled]="!matchReportForm.form.valid"
+      >
         Falkenheimer werden
       </button>
     </div>

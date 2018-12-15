@@ -13,6 +13,7 @@ import { MatchReportComponent } from './match-report/match-report.component';
 import { SeasonComponent } from './season/season.component';
 import { StandingsComponent } from './standings/standings.component';
 import { TeamComponent } from './team/team.component';
+import { JoinService } from '../services/join.service';
 
 @NgModule({
   imports: [CommonModule, ContentRoutingModule, FormsModule],
@@ -27,6 +28,6 @@ import { TeamComponent } from './team/team.component';
     FixturesComponent,
     JoinComponent
   ],
-  providers: [MatchReportService]
+  providers: [MatchReportService, JoinService]
 })
 export class ContentModule {}
