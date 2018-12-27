@@ -1,24 +1,47 @@
 <div class="footer">
   <div class="footer-container">
     <div class="footer-main-club__container">
-      <a class="footer-item footer-item--link" href="http://www.tsv-falkenheim.info/">
+      <a
+        class="footer-item footer-item--link"
+        href="http://www.tsv-falkenheim.info/"
+      >
         Hauptverein
       </a>
     </div>
     <div class="footer-link__container">
       <a href="https://de-de.facebook.com/falkenheimhandball/">
-        <img class="external-link-image" src="assets/img/flogo-HexRBG-Wht-1024.png"
-          alt="Facebook Glyphicon">
+        <img
+          class="external-link-image"
+          src="assets/img/flogo-HexRBG-Wht-1024.png"
+          alt="Facebook Glyphicon"
+        />
       </a>
       <a href="https://www.instagram.com/tsvfalkenheimhandball/?hl=de">
-        <img class="external-link-image invert-colors" src="assets/img/glyph-logo_May2016.png"
-          alt="Instagram Glyphicon">
+        <img
+          class="external-link-image invert-colors"
+          src="assets/img/glyph-logo_May2016.png"
+          alt="Instagram Glyphicon"
+        />
       </a>
     </div>
     <div class="footer-handball__container">
       <a class="footer-item footer-item--link" [routerLink]="'/impressum'">
         Impressum
       </a>
+      <a
+        *ngIf="!authenticationService.isLoggedIn()"
+        class="footer-item footer-item--link"
+        [routerLink]="'/login'"
+      >
+        Login
+      </a>
+      <p
+        *ngIf="authenticationService.isLoggedIn()"
+        class="footer-item footer-item--link"
+        (click)="logout()"
+      >
+        Logout
+      </p>
     </div>
   </div>
 </div>

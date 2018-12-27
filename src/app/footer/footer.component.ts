@@ -1,4 +1,7 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'falkenheim-footer',
@@ -6,10 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
+  constructor(public authenticationService: AuthenticationService) {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  logout() {
+    this.authenticationService.logout();
   }
-
 }

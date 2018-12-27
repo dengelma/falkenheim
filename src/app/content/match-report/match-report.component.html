@@ -32,7 +32,7 @@
   </div>
 </div>
 
-<div class="card">
+<div class="card" *ngIf="authenticationService.isLoggedIn()">
   <h2>Neuer Spielbericht</h2>
   <form (ngSubmit)="onSubmit()" #matchReportForm="ngForm">
     <div class="card-information date">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatchReport } from '../../contracts/match-report';
 import { MatchReportService } from '../../services/match-report.service';
 import { Observable } from 'rxjs';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'falkenheim-match-report',
@@ -23,7 +24,10 @@ export class MatchReportComponent implements OnInit {
 
   dateForForm = new Date();
 
-  constructor(private matchReportService: MatchReportService) {}
+  constructor(
+    private matchReportService: MatchReportService,
+    public authenticationService: AuthenticationService
+  ) {}
 
   ngOnInit() {
     this.matchReports$ = this.matchReportService.getMatchReports();

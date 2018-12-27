@@ -1,0 +1,47 @@
+<h1>Login für Mitglieder</h1>
+
+<div class="card">
+  <h2>Hier kannst du dich anmelden</h2>
+  <form (ngSubmit)="login()" #matchReportForm="ngForm">
+    <div class="card-information mail">
+      <label class="text-input--label" for="mail">Die Mail</label>
+      <input
+        class="custom-input"
+        type="email"
+        id="mail"
+        [(ngModel)]="loginCredentials.mail"
+        required
+        name="mail"
+        #mail
+      />
+    </div>
+    <div [hidden]="checkStatusOfElement(mail)" class="alert alert-danger">
+      Es muss eine E-Mail-Adresse eingetragen werden.
+    </div>
+    <div class="card-information password">
+      <label class="text-input--label" for="password">Das Passwort</label>
+      <input
+        class="custom-input"
+        type="password"
+        id="password"
+        [(ngModel)]="loginCredentials.password"
+        required
+        name="password"
+        #password
+      />
+    </div>
+    <div [hidden]="checkStatusOfElement(mail)" class="alert alert-danger">
+      Es muss ein Passwort eingetragen werden
+    </div>
+
+    <div class="container btn-container">
+      <button
+        class="btn-falkenheim falkenheim-submit"
+        type="submit"
+        [class.disabled]="!matchReportForm.form.valid"
+      >
+        Anmelden
+      </button>
+    </div>
+  </form>
+</div>
