@@ -13,3 +13,13 @@
 .match-report textarea {
   min-height: 250px;
 }
+
+.headline {
+  position: relative;
+}
+
+.edit {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+}

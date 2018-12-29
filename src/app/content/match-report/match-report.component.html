@@ -1,38 +1,175 @@
-<div class="card" *ngFor="let matchReport of (matchReports$ | async)">
-  <h2>
-    Spielbericht vom {{ matchReport.date.seconds * 1000 | date: 'medium' }}
-  </h2>
-  <div class="card-information match">
-    <span
-      ><strong>{{ matchReport.match }}</strong>
-    </span>
-  </div>
-  <div class="card-information report">
-    <span>{{ matchReport.report }}</span>
-  </div>
-  <div class="card-information more-information">
-    <div class="information participating">
-      <strong>Dabei waren:</strong>
-      <p>{{ matchReport.participating }}</p>
-    </div>
-    <div class="information prevented">
-      <strong>Verhindert waren:</strong>
-      <p>{{ matchReport.prevented }}</p>
-    </div>
-    <div class="information supervisor">
-      <strong>Betreuer / Kampfgericht:</strong>
-      <p>{{ matchReport.supervisor }}</p>
-    </div>
-    <div *ngIf="matchReport.link !== ''" class="information link">
-      <strong>Offiziell genehmigter Spielberichtsbogen (externer Link)</strong>
-      <a target="_blank" class="block-element" href="{{matchReport.link}}"
-        >PDF</a
+<div class="card" *ngFor="let matchReport of matchReports">
+  <span *ngIf="!matchReport.editMode; else editMatchReport">
+    <h2 class="headline">
+      Spielbericht vom {{ matchReport.date.seconds * 1000 | date: 'medium' }}
+      <span
+        (click)="activateEditMode(matchReport)"
+        *ngIf="authenticationService.isLoggedIn()"
+        class="edit"
+        >&#x270E;</span
       >
+    </h2>
+    <div class="card-information match">
+      <span
+        ><strong>{{ matchReport.match }}</strong>
+      </span>
     </div>
-  </div>
+    <div class="card-information report">
+      <span>{{ matchReport.report }}</span>
+    </div>
+    <div class="card-information more-information">
+      <div class="information participating">
+        <strong>Dabei waren:</strong>
+        <p>{{ matchReport.participating }}</p>
+      </div>
+      <div class="information prevented">
+        <strong>Verhindert waren:</strong>
+        <p>{{ matchReport.prevented }}</p>
+      </div>
+      <div class="information supervisor">
+        <strong>Betreuer / Kampfgericht:</strong>
+        <p>{{ matchReport.supervisor }}</p>
+      </div>
+      <div *ngIf="matchReport.link !== ''" class="information link">
+        <strong
+          >Offiziell genehmigter Spielberichtsbogen (externer Link)</strong
+        >
+        <a target="_blank" class="block-element" href="{{ matchReport.link }}"
+          >PDF</a
+        >
+      </div>
+    </div>
+  </span>
+  <ng-template #editMatchReport>
+    <h2>Spielbericht editieren</h2>
+    <form (ngSubmit)="onEdit(matchReport)" #matchReportEditForm="ngForm">
+      <div class="card-information date">
+        <label class="text-input--label" for="date">Datum</label>
+        <input
+          class="custom-input"
+          type="datetime-local"
+          id="dateEdit"
+          required
+          [ngModel]="dateForEditForm | date: 'yyyy-MM-ddTHH:mm'"
+          (ngModelChange)="filterDateFrom = $event"
+          name="dateEdit"
+          #dateEdit="ngModel"
+        />
+      </div>
+      <div class="card-information match">
+        <label class="text-input--label" for="match-edit">Spielbegegnung</label>
+        <input
+          class="custom-input"
+          type="text"
+          id="match-edit"
+          required
+          [(ngModel)]="matchReportToEdit.match"
+          name="matchEdit"
+          #matchEdit
+        />
+        <div
+          [hidden]="checkStatusOfElement(matchEdit)"
+          class="alert alert-danger"
+        >
+          Es muss eine Spielbegegnung eingetragen werden
+        </div>
+      </div>
+      <div class="card-information match-report">
+        <label class="text-input--label" for="match-report-edit"
+          >Spielbericht</label
+        >
+        <textarea
+          class="custom-input"
+          name="match-report"
+          required
+          [(ngModel)]="matchReportToEdit.report"
+          name="reportEdit"
+          #reportEdit
+        ></textarea>
+        <div
+          [hidden]="checkStatusOfElement(reportEdit)"
+          class="alert alert-danger"
+        >
+          Es muss ein Spielbericht eingetragen werden
+        </div>
+      </div>
+      <div class="card-information participating">
+        <label class="text-input--label" for="participating-edit"
+          >Dabei waren</label
+        >
+        <input
+          class="custom-input"
+          type="text"
+          id="participating-edit"
+          required
+          [(ngModel)]="matchReportToEdit.participating"
+          name="participatingEdit"
+          #participatingEdit
+        />
+        <div
+          [hidden]="checkStatusOfElement(participatingEdit)"
+          class="alert alert-danger"
+        >
+          Es müssen alle Teilnehmer eingetragen werden
+        </div>
+      </div>
+      <div class="card-information prevented">
+        <label class="text-input--label" for="prevented-edit"
+          >Verhindert waren</label
+        >
+        <input
+          class="custom-input"
+          type="text"
+          id="prevented-edit"
+          name="preventedEdit"
+          [(ngModel)]="matchReportToEdit.prevented"
+        />
+      </div>
+      <div class="card-information supervisor">
+        <label class="text-input--label" for="supervisor-edit"
+          >Betreuer / Kampfgericht</label
+        >
+        <input
+          class="custom-input"
+          type="text"
+          id="supervisor-edit"
+          name="supervisorEdit"
+          [(ngModel)]="matchReportToEdit.supervisor"
+        />
+      </div>
+      <div class="card-information link">
+        <label class="text-input--label" for="link-edit"
+          >Link zum offiziellen Spielberichtsbogen</label
+        >
+        <input
+          class="custom-input"
+          type="text"
+          id="link-edit"
+          name="linkEdit"
+          [(ngModel)]="matchReportToEdit.link"
+        />
+      </div>
+      <div class="container btn-container">
+        <button
+          type="submit"
+          class="btn-falkenheim falkenheim-submit"
+          [class.disabled]="!matchReportEditForm.form.valid"
+        >
+          Spielbericht ändern
+        </button>
+        <button
+          (click)="cancelEditMode(matchReport)"
+          type="button"
+          class="btn-falkenheim falkenheim-submit"
+        >
+          Abbrechen
+        </button>
+      </div>
+    </form>
+  </ng-template>
 </div>
 
-<div class="card" *ngIf="authenticationService.isLoggedIn()">
+<div class="card" *ngIf="authenticationService.isLoggedIn() && !editModeActive">
   <h2>Neuer Spielbericht</h2>
   <form (ngSubmit)="onSubmit()" #matchReportForm="ngForm">
     <div class="card-information date">
