@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'falkenheim-header',
@@ -14,11 +14,9 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   openLinkContainer(position: number) {
     for (let i = 0; i <= this.linkContainer.length - 1; i++) {

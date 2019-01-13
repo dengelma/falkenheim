@@ -1,0 +1,62 @@
+.image-card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.image-card__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.player-image {
+  height: 30%;
+  width: 30%;
+}
+
+.card {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.team-members-position {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.team-members {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-team-member {
+  min-width: 533px;
+  max-width: 500px;
+}
+
+.special-card-team {
+  padding: 0;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.team-image {
+  height: 70%;
+  width: 70%;
+}
+
+.image-container {
+  display: flex;
+}
+
+.team-member-container {
+  margin-left: 8px;
+}
+
+.team-member {
+  padding: 8px 0;
+}

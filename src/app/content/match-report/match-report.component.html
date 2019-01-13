@@ -1,17 +1,17 @@
 <div class="card" *ngFor="let matchReport of matchReports">
   <span *ngIf="!matchReport.editMode; else editMatchReport">
     <h2 class="headline">
-      Spielbericht vom {{ matchReport.date.seconds * 1000 | date: 'medium' }}
-      <span
-        (click)="activateEditMode(matchReport)"
-        *ngIf="authenticationService.isLoggedIn()"
-        class="edit"
-        >&#x270E;</span
-      >
+      Spielbericht vom {{ matchReport.date | date: 'medium' }}
+      <span (click)="activateEditMode(matchReport)" *ngIf="authenticationService.isLoggedIn()" class="edit">&#x270E;</span>
     </h2>
     <div class="card-information match">
       <span
         ><strong>{{ matchReport.match }}</strong>
+      </span>
+    </div>
+    <div class="card-information result">
+      <span
+        >Ergebnis: <strong>{{ matchReport.result }}</strong>
       </span>
     </div>
     <div class="card-information report">
@@ -31,12 +31,8 @@
         <p>{{ matchReport.supervisor }}</p>
       </div>
       <div *ngIf="matchReport.link !== ''" class="information link">
-        <strong
-          >Offiziell genehmigter Spielberichtsbogen (externer Link)</strong
-        >
-        <a target="_blank" class="block-element" href="{{ matchReport.link }}"
-          >PDF</a
-        >
+        <strong>Offiziell genehmigter Spielberichtsbogen (externer Link)</strong>
+        <a target="_blank" class="block-element" href="{{ matchReport.link }}">PDF</a>
       </div>
     </div>
   </span>
@@ -44,126 +40,134 @@
     <h2>Spielbericht editieren</h2>
     <form (ngSubmit)="onEdit(matchReport)" #matchReportEditForm="ngForm">
       <div class="card-information date">
-        <label class="text-input--label" for="date">Datum</label>
+        <label class="text-input--label" for="dateEdit">Datum</label>
         <input
           class="custom-input"
-          type="datetime-local"
+          type="date"
           id="dateEdit"
           required
-          [ngModel]="dateForEditForm | date: 'yyyy-MM-ddTHH:mm'"
-          (ngModelChange)="filterDateFrom = $event"
+          [ngModel]="matchReportEditData.date | date: 'yyyy-MM-dd'"
+          (ngModelChange)="matchReportEditData.date = $event"
           name="dateEdit"
           #dateEdit="ngModel"
         />
       </div>
-      <div class="card-information match">
-        <label class="text-input--label" for="match-edit">Spielbegegnung</label>
+      <div class="card-information date">
+        <label class="text-input--label" for="timeEdit">Datum</label>
+        <input
+          class="custom-input"
+          type="time"
+          id="timeEdit"
+          required
+          [(ngModel)]="matchReportEditData.time"
+          name="timeEdit"
+          #timeEdit="ngModel"
+        />
+      </div>
+
+      <div class="card-information home-or-away">
+        Wo hat das Spiel stattgefunden?
+        <div class="radio-buttons">
+          <label class="radio-button--container"
+            >Heimspiel
+            <input type="radio" name="gameEdit" [checked]="matchReportEditData.homeGame" (change)="matchReportEditData.homeGame = true" />
+            <span class="radio-button"></span>
+          </label>
+          <label class="radio-button--container"
+            >Auswärtsspiel
+            <input type="radio" name="gameEdit" [checked]="!matchReportEditData.homeGame" (change)="matchReportEditData.homeGame = false" />
+            <span class="radio-button"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="card-information opponent">
+        <label class="text-input--label" for="opponent-edit">Gegnerische Mannschaft</label>
         <input
           class="custom-input"
           type="text"
-          id="match-edit"
+          id="opponent-edit"
           required
-          [(ngModel)]="matchReportToEdit.match"
-          name="matchEdit"
-          #matchEdit
+          [(ngModel)]="matchReportEditData.opponent"
+          name="opponentEdit"
+          #opponentEdit
         />
-        <div
-          [hidden]="checkStatusOfElement(matchEdit)"
-          class="alert alert-danger"
-        >
-          Es muss eine Spielbegegnung eingetragen werden
+        <div [hidden]="checkStatusOfElement(opponentEdit)" class="alert alert-danger">Es muss eine Spielbegegnung eingetragen werden</div>
+      </div>
+
+      <div class="card-information result-tsv-edit">
+        <label class="text-input--label" for="result-tsv-edit">Tore TSV</label>
+        <input
+          class="custom-input"
+          type="text"
+          id="result-tsv-edit"
+          required
+          [(ngModel)]="matchReportEditData.resultTsv"
+          name="resultTsvEdit"
+          #resultTsvEdit
+        />
+        <div [hidden]="checkStatusOfElement(resultTsvEdit)" class="alert alert-danger">Unsere Anzahl an Toren muss eingetragen werden</div>
+      </div>
+      <div class="card-information result-opponent-edit">
+        <label class="text-input--label" for="result-opponent-edit">Tore Gegner</label>
+        <input
+          class="custom-input"
+          type="text"
+          id="result-opponent-edit"
+          required
+          [(ngModel)]="matchReportEditData.resultOpponent"
+          name="resultOpponentEdit"
+          #resultOpponentEdit
+        />
+        <div [hidden]="checkStatusOfElement(resultOpponentEdit)" class="alert alert-danger">
+          Es muss die Anzahl an Toren des Gegners eingetragen werden.
         </div>
       </div>
+
       <div class="card-information match-report">
-        <label class="text-input--label" for="match-report-edit"
-          >Spielbericht</label
-        >
+        <label class="text-input--label" for="match-report-edit">Spielbericht</label>
         <textarea
           class="custom-input"
           name="match-report"
           required
-          [(ngModel)]="matchReportToEdit.report"
+          [(ngModel)]="matchReportEditData.report"
           name="reportEdit"
           #reportEdit
         ></textarea>
-        <div
-          [hidden]="checkStatusOfElement(reportEdit)"
-          class="alert alert-danger"
-        >
-          Es muss ein Spielbericht eingetragen werden
-        </div>
+        <div [hidden]="checkStatusOfElement(reportEdit)" class="alert alert-danger">Es muss ein Spielbericht eingetragen werden</div>
       </div>
       <div class="card-information participating">
-        <label class="text-input--label" for="participating-edit"
-          >Dabei waren</label
-        >
+        <label class="text-input--label" for="participating-edit">Dabei waren</label>
         <input
           class="custom-input"
           type="text"
           id="participating-edit"
           required
-          [(ngModel)]="matchReportToEdit.participating"
+          [(ngModel)]="matchReportEditData.participating"
           name="participatingEdit"
           #participatingEdit
         />
-        <div
-          [hidden]="checkStatusOfElement(participatingEdit)"
-          class="alert alert-danger"
-        >
+        <div [hidden]="checkStatusOfElement(participatingEdit)" class="alert alert-danger">
           Es müssen alle Teilnehmer eingetragen werden
         </div>
       </div>
       <div class="card-information prevented">
-        <label class="text-input--label" for="prevented-edit"
-          >Verhindert waren</label
-        >
-        <input
-          class="custom-input"
-          type="text"
-          id="prevented-edit"
-          name="preventedEdit"
-          [(ngModel)]="matchReportToEdit.prevented"
-        />
+        <label class="text-input--label" for="prevented-edit">Verhindert waren</label>
+        <input class="custom-input" type="text" id="prevented-edit" name="preventedEdit" [(ngModel)]="matchReportEditData.prevented" />
       </div>
       <div class="card-information supervisor">
-        <label class="text-input--label" for="supervisor-edit"
-          >Betreuer / Kampfgericht</label
-        >
-        <input
-          class="custom-input"
-          type="text"
-          id="supervisor-edit"
-          name="supervisorEdit"
-          [(ngModel)]="matchReportToEdit.supervisor"
-        />
+        <label class="text-input--label" for="supervisor-edit">Betreuer / Kampfgericht</label>
+        <input class="custom-input" type="text" id="supervisor-edit" name="supervisorEdit" [(ngModel)]="matchReportEditData.supervisor" />
       </div>
       <div class="card-information link">
-        <label class="text-input--label" for="link-edit"
-          >Link zum offiziellen Spielberichtsbogen</label
-        >
-        <input
-          class="custom-input"
-          type="text"
-          id="link-edit"
-          name="linkEdit"
-          [(ngModel)]="matchReportToEdit.link"
-        />
+        <label class="text-input--label" for="link-edit">Link zum offiziellen Spielberichtsbogen</label>
+        <input class="custom-input" type="text" id="link-edit" name="linkEdit" [(ngModel)]="matchReportEditData.link" />
       </div>
       <div class="container btn-container">
-        <button
-          type="submit"
-          class="btn-falkenheim falkenheim-submit"
-          [class.disabled]="!matchReportEditForm.form.valid"
-        >
+        <button type="submit" class="btn-falkenheim falkenheim-submit" [class.disabled]="!matchReportEditForm.form.valid">
           Spielbericht ändern
         </button>
-        <button
-          (click)="cancelEditMode(matchReport)"
-          type="button"
-          class="btn-falkenheim falkenheim-submit"
-        >
-          Abbrechen
-        </button>
+        <button (click)="cancelEditMode(matchReport)" type="button" class="btn-falkenheim falkenheim-submit">Abbrechen</button>
       </div>
     </form>
   </ng-template>
@@ -176,27 +180,75 @@
       <label class="text-input--label" for="date">Datum</label>
       <input
         class="custom-input"
-        type="datetime-local"
+        type="date"
         id="date"
         required
-        [(ngModel)]="dateForForm"
+        [ngModel]="matchReportSubmitData.date | date: 'yyyy-MM-dd'"
+        (ngModelChange)="matchReportSubmitData.date = $event"
         name="date"
         #date="ngModel"
       />
     </div>
-    <div class="card-information match">
-      <label class="text-input--label" for="match">Spielbegegnung</label>
+    <div class="card-information time">
+      <label class="text-input--label" for="time">Zeit</label>
+      <input class="custom-input" type="time" id="time" required [(ngModel)]="matchReportSubmitData.time" name="time" #time="ngModel" />
+    </div>
+    <div class="card-information home-or-away">
+      Wo hat das Spiel stattgefunden?
+      <div class="radio-buttons">
+        <label class="radio-button--container"
+          >Heimspiel
+          <input type="radio" name="game" [checked]="matchReportSubmitData.homeGame" (change)="matchReportSubmitData.homeGame = true" />
+          <span class="radio-button"></span>
+        </label>
+        <label class="radio-button--container"
+          >Auswärtsspiel
+          <input type="radio" name="game" [checked]="!matchReportSubmitData.homeGame" (change)="matchReportSubmitData.homeGame = false" />
+          <span class="radio-button"></span>
+        </label>
+      </div>
+    </div>
+    <div class="card-information opponent">
+      <label class="text-input--label" for="opponent">Gegner</label>
       <input
         class="custom-input"
         type="text"
-        id="match"
+        id="opponent"
         required
-        [(ngModel)]="matchReportToSubmit.match"
-        name="match"
-        #match
+        [(ngModel)]="matchReportSubmitData.opponent"
+        name="opponent"
+        #opponent
       />
-      <div [hidden]="checkStatusOfElement(match)" class="alert alert-danger">
-        Es muss eine Spielbegegnung eingetragen werden
+      <div [hidden]="checkStatusOfElement(opponent)" class="alert alert-danger">
+        Es muss eine gegnerische Mannschaft eingetragen werden.
+      </div>
+    </div>
+    <div class="card-information result-tsv">
+      <label class="text-input--label" for="result-tsv">Tore TSV</label>
+      <input
+        class="custom-input"
+        type="text"
+        id="result-tsv"
+        required
+        [(ngModel)]="matchReportSubmitData.resultTsv"
+        name="resultTsv"
+        #resultTsv
+      />
+      <div [hidden]="checkStatusOfElement(resultTsv)" class="alert alert-danger">Unsere Anzahl an Toren muss eingetragen werden</div>
+    </div>
+    <div class="card-information result-opponent">
+      <label class="text-input--label" for="result-opponent">Tore Gegner</label>
+      <input
+        class="custom-input"
+        type="text"
+        id="result-opponent"
+        required
+        [(ngModel)]="matchReportSubmitData.resultOpponent"
+        name="resultOpponent"
+        #resultOpponent
+      />
+      <div [hidden]="checkStatusOfElement(resultOpponent)" class="alert alert-danger">
+        Es muss die Anzahl an Toren des Gegners eingetragen werden.
       </div>
     </div>
     <div class="card-information match-report">
@@ -205,13 +257,11 @@
         class="custom-input"
         name="match-report"
         required
-        [(ngModel)]="matchReportToSubmit.report"
+        [(ngModel)]="matchReportSubmitData.report"
         name="report"
         #report
       ></textarea>
-      <div [hidden]="checkStatusOfElement(report)" class="alert alert-danger">
-        Es muss ein Spielbericht eingetragen werden
-      </div>
+      <div [hidden]="checkStatusOfElement(report)" class="alert alert-danger">Es muss ein Spielbericht eingetragen werden</div>
     </div>
     <div class="card-information participating">
       <label class="text-input--label" for="participating">Dabei waren</label>
@@ -220,57 +270,26 @@
         type="text"
         id="participating"
         required
-        [(ngModel)]="matchReportToSubmit.participating"
+        [(ngModel)]="matchReportSubmitData.participating"
         name="participating"
         #participating
       />
-      <div
-        [hidden]="checkStatusOfElement(participating)"
-        class="alert alert-danger"
-      >
-        Es müssen alle Teilnehmer eingetragen werden
-      </div>
+      <div [hidden]="checkStatusOfElement(participating)" class="alert alert-danger">Es müssen alle Teilnehmer eingetragen werden</div>
     </div>
     <div class="card-information prevented">
       <label class="text-input--label" for="prevented">Verhindert waren</label>
-      <input
-        class="custom-input"
-        type="text"
-        id="prevented"
-        name="prevented"
-        [(ngModel)]="matchReportToSubmit.prevented"
-      />
+      <input class="custom-input" type="text" id="prevented" name="prevented" [(ngModel)]="matchReportSubmitData.prevented" />
     </div>
     <div class="card-information supervisor">
-      <label class="text-input--label" for="supervisor"
-        >Betreuer / Kampfgericht</label
-      >
-      <input
-        class="custom-input"
-        type="text"
-        id="supervisor"
-        name="supervisor"
-        [(ngModel)]="matchReportToSubmit.supervisor"
-      />
+      <label class="text-input--label" for="supervisor">Betreuer / Kampfgericht</label>
+      <input class="custom-input" type="text" id="supervisor" name="supervisor" [(ngModel)]="matchReportSubmitData.supervisor" />
     </div>
     <div class="card-information link">
-      <label class="text-input--label" for="link"
-        >Link zum offiziellen Spielberichtsbogen</label
-      >
-      <input
-        class="custom-input"
-        type="text"
-        id="link"
-        name="supervisor"
-        [(ngModel)]="matchReportToSubmit.link"
-      />
+      <label class="text-input--label" for="link">Link zum offiziellen Spielberichtsbogen</label>
+      <input class="custom-input" type="text" id="link" name="supervisor" [(ngModel)]="matchReportSubmitData.link" />
     </div>
     <div class="container btn-container">
-      <button
-        type="submit"
-        class="btn-falkenheim falkenheim-submit"
-        [class.disabled]="!matchReportForm.form.valid"
-      >
+      <button type="submit" class="btn-falkenheim falkenheim-submit" [class.disabled]="!matchReportForm.form.valid">
         Neuen Spielbericht einstellen
       </button>
     </div>

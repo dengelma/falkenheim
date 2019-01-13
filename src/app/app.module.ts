@@ -18,20 +18,12 @@ import { AuthenticationService } from './services/authentication.service';
 registerLocaleData(localeDe);
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    ContactComponent
-  ],
+  declarations: [AppComponent, HeaderComponent, FooterComponent, ContactComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ContentModule,
-    AngularFireModule.initializeApp(
-      environment.firebase,
-      'falkenheim-handball'
-    ),
+    AngularFireModule.initializeApp(environment.firebase, 'falkenheim-handball'),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule // imports firebase/auth, only needed for auth features,
   ],

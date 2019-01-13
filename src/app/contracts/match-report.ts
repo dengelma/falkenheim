@@ -1,7 +1,8 @@
 export interface MatchReport {
   id?: string;
-  date: { seconds: number };
+  date: number;
   match: string;
+  result: string;
   report: string;
   participating: string;
   prevented?: string;

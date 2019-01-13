@@ -16,6 +16,7 @@ import { MatchReportComponent } from './match-report/match-report.component';
 import { SeasonComponent } from './season/season.component';
 import { StandingsComponent } from './standings/standings.component';
 import { TeamComponent } from './team/team.component';
+import { TeamMembersService } from '../services/team-members.service';
 
 @NgModule({
   imports: [CommonModule, ContentRoutingModule, FormsModule],
@@ -31,6 +32,6 @@ import { TeamComponent } from './team/team.component';
     JoinComponent,
     LoginComponent
   ],
-  providers: [MatchReportService, JoinService, AuthenticationService]
+  providers: [MatchReportService, JoinService, AuthenticationService, TeamMembersService]
 })
 export class ContentModule {}

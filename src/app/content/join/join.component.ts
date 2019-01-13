@@ -34,6 +34,16 @@ export class JoinComponent implements OnInit {
       console.log(
         'Vielen Dank für dein Interesse! Die Anfrage wurde erfolgreich versendet.'
       );
+      this.clearJoinForm();
     });
+  }
+
+  clearJoinForm() {
+    this.joinRequestToSubmit = {
+      date: { seconds: new Date().getSeconds() },
+      name: '',
+      mail: '',
+      experience: false
+    };
   }
 }
