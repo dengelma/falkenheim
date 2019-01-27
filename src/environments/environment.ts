@@ -9,7 +9,7 @@ export const environment = {
     authDomain: 'falkenheim-handball.firebaseapp.com',
     databaseURL: 'https://falkenheim-handball.firebaseio.com',
     projectId: 'falkenheim-handball',
-    storageBucket: '',
+    storageBucket: 'falkenheim-handball.appspot.com',
     messagingSenderId: '705013052036'
   }
 };

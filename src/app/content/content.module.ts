@@ -17,6 +17,8 @@ import { SeasonComponent } from './season/season.component';
 import { StandingsComponent } from './standings/standings.component';
 import { TeamComponent } from './team/team.component';
 import { TeamMembersService } from '../services/team-members.service';
+import { TeamEditComponent } from './team/team-edit/team-edit.component';
+import { TeamMemberByPositionComponent } from './team/team-member-by-position/team-member-by-position.component';
 
 @NgModule({
   imports: [CommonModule, ContentRoutingModule, FormsModule],
@@ -30,7 +32,9 @@ import { TeamMembersService } from '../services/team-members.service';
     MatchReportComponent,
     FixturesComponent,
     JoinComponent,
-    LoginComponent
+    LoginComponent,
+    TeamEditComponent,
+    TeamMemberByPositionComponent
   ],
   providers: [MatchReportService, JoinService, AuthenticationService, TeamMembersService]
 })

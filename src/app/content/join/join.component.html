@@ -4,74 +4,39 @@
   <h2>Was du wissen musst</h2>
   <div class="card-information time">
     <span class="question"><strong>Wann trainieren wir:</strong></span>
-    <span
-      >Jeden Montag um 20Uhr (außer in den Schulferien, weil Halle geschlossen)
-    </span>
+    <span>Jeden Montag um 20Uhr (außer in den Schulferien, weil Halle geschlossen) </span>
   </div>
   <div class="card-information location">
-    <span class="question"><strong>Wo trainieren wir:</strong></span>
-    <span>Geschwister-Schöll Realschule Nürnberg</span>
+    <span class="question"><strong>Wo trainieren wir:</strong></span> <span>Geschwister-Schöll Realschule Nürnberg</span>
   </div>
   <div class="card-information more-information">
     <span class="question"><strong>Weitere Informationen:</strong></span>
-    <span
-      >Du hast Bock auf coole Leute und einen super Sport? Dann melde dich doch
-      gleich bei uns an!</span
-    >
+    <span>Du hast Bock auf coole Leute und einen super Sport? Dann melde dich doch gleich bei uns an!</span>
   </div>
 </div>
 
-<div class="card">
-  <h2>Du willst mitmachen? Dann gib uns deine Kontaktdaten!</h2>
+<div class="card card-add">
+  <h2 class="header-add">Du willst mitmachen? Dann gib uns deine Kontaktdaten!</h2>
   <form (ngSubmit)="onSubmit()" #matchReportForm="ngForm">
     <div class="card-information name">
       <label class="text-input--label" for="name">Dein Name</label>
-      <input
-        class="custom-input"
-        type="text"
-        id="name"
-        [(ngModel)]="joinRequestToSubmit.name"
-        required
-        name="name"
-        #name
-      />
+      <input class="custom-input" type="text" id="name" [(ngModel)]="joinRequestToSubmit.name" required name="name" #name />
     </div>
-    <div [hidden]="checkStatusOfElement(name)" class="alert alert-danger">
-      Es muss ein Name eingetragen werden.
-    </div>
+    <div [hidden]="checkStatusOfElement(name)" class="alert alert-danger">Es muss ein Name eingetragen werden.</div>
     <div class="card-information mail">
       <label class="text-input--label" for="mail">Deine Mail</label>
-      <input
-        class="custom-input"
-        type="email"
-        id="mail"
-        [(ngModel)]="joinRequestToSubmit.mail"
-        required
-        name="mail"
-        #mail
-      />
+      <input class="custom-input" type="email" id="mail" [(ngModel)]="joinRequestToSubmit.mail" required name="mail" #mail />
     </div>
-    <div [hidden]="checkStatusOfElement(mail)" class="alert alert-danger">
-      Es muss eine E-Mail-Adresse eingetragen werden.
-    </div>
+    <div [hidden]="checkStatusOfElement(mail)" class="alert alert-danger">Es muss eine E-Mail-Adresse eingetragen werden.</div>
     <div class="card-information experience">
       <label class="container"
         >Hast du bereits Erfahrung?
-        <input
-          type="checkbox"
-          [(ngModel)]="joinRequestToSubmit.experience"
-          id="experience-checkbox"
-          name="checkbox"
-        />
+        <input type="checkbox" [(ngModel)]="joinRequestToSubmit.experience" id="experience-checkbox" name="checkbox" />
         <span class="checkmark"></span>
       </label>
     </div>
     <div class="container btn-container">
-      <button
-        class="btn-falkenheim falkenheim-submit"
-        type="submit"
-        [class.disabled]="!matchReportForm.form.valid"
-      >
+      <button class="btn-falkenheim falkenheim-submit" type="submit" [class.disabled]="!matchReportForm.form.valid">
         Falkenheimer werden
       </button>
     </div>

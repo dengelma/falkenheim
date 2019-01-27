@@ -1,9 +1,12 @@
+import { NotificationService } from './../../services/notification.service';
+import { StorageService } from './../../services/storage.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 import { Position, TeamMembers } from '../../contracts/team-members';
 import { AuthenticationService } from '../../services/authentication.service';
 import { TeamMembersService } from '../../services/team-members.service';
+import { AngularFireUploadTask, AngularFireStorageReference, AngularFireStorage } from 'angularfire2/storage';
 
 export const positions: Position[] = [
   {
@@ -49,6 +52,12 @@ export const positions: Position[] = [
   styleUrls: ['./team.component.css']
 })
 export class TeamComponent implements OnInit, OnDestroy {
+  ref: AngularFireStorageReference;
+  task: AngularFireUploadTask;
+  uploadProgress: Observable<number>;
+  downloadURL: Observable<string>;
+  path = 'players/';
+
   teamMembers: TeamMembers[] = [];
 
   goalies: TeamMembers[] = [];
@@ -59,6 +68,8 @@ export class TeamComponent implements OnInit, OnDestroy {
 
   teamMemberSubscription = new Subscription();
 
+  teamMemberToEdit: TeamMembers;
+
   positions = positions;
 
   newTeamMember: TeamMembers = {
@@ -68,12 +79,19 @@ export class TeamComponent implements OnInit, OnDestroy {
     number: 0,
     position: { positionFull: '', positionShort: '', category: '' },
     image: '',
-    memberSince: 2019
+    memberSince: 2019,
+    storagePath: 'players/'
   };
 
   editModeActive = false;
 
-  constructor(public authenticationService: AuthenticationService, private teamMembersService: TeamMembersService) {}
+  constructor(
+    public authenticationService: AuthenticationService,
+    private teamMembersService: TeamMembersService,
+    public storageService: StorageService,
+    public afStorage: AngularFireStorage,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit() {
     this.teamMemberSubscription = this.teamMembersService.getTeamMembers().subscribe((teamMember: TeamMembers) => {
@@ -101,7 +119,10 @@ export class TeamComponent implements OnInit, OnDestroy {
 
   addNewPlayer() {
     this.clearArrays();
-    this.teamMembersService.addNewTeamMember(this.newTeamMember).then(() => this.clearAddPlayerForm());
+    this.teamMembersService.addNewTeamMember(this.newTeamMember).then(() => {
+      this.clearAddPlayerForm();
+      this.notificationService.showNotification('Neuen Spieler erfolgreich angelegt!');
+    });
   }
 
   clearAddPlayerForm() {
@@ -112,7 +133,8 @@ export class TeamComponent implements OnInit, OnDestroy {
       number: 0,
       position: { positionFull: '', positionShort: '', category: '' },
       image: '',
-      memberSince: 2019
+      memberSince: 2019,
+      storagePath: 'players/'
     };
   }
 
@@ -137,6 +159,25 @@ export class TeamComponent implements OnInit, OnDestroy {
     }
   }
 
+  activateEditMode(teamMember: TeamMembers) {
+    teamMember.editMode = true;
+    this.teamMemberToEdit = teamMember;
+    this.editModeActive = true;
+    this.teamMembers.forEach((oneTeamMember: TeamMembers) => {
+      oneTeamMember.editMode = false;
+    });
+
+    this.teamMemberToEdit.editMode = true;
+    this.teamMemberToEdit.id = teamMember.id;
+    this.teamMemberToEdit.firstName = teamMember.firstName;
+    this.teamMemberToEdit.name = teamMember.name;
+    this.teamMemberToEdit.nickname = teamMember.nickname;
+    this.teamMemberToEdit.number = teamMember.number;
+    this.teamMemberToEdit.memberSince = teamMember.memberSince;
+    this.teamMemberToEdit.image = teamMember.image;
+    this.teamMemberToEdit.position = teamMember.position;
+  }
+
   clearArrays() {
     this.teamMembers = [];
     this.goalies = [];
@@ -144,5 +185,42 @@ export class TeamComponent implements OnInit, OnDestroy {
     this.rueckraum = [];
     this.kreis = [];
     this.noCategory = [];
+  }
+
+  editPlayer(teamMember: TeamMembers) {
+    this.editModeActive = false;
+    teamMember.editMode = false;
+    this.clearTeamMemberToEdit();
+    this.clearArrays();
+    this.teamMembersService.editTeamMember(teamMember).then(() => {
+      this.notificationService.showNotification('Daten des Spielers erfolgreich angepasst!');
+    });
+  }
+
+  cancelEditMode(teamMember: TeamMembers) {
+    this.editModeActive = false;
+    teamMember.editMode = false;
+    this.clearTeamMemberToEdit();
+  }
+
+  clearTeamMemberToEdit() {
+    this.teamMemberToEdit = {
+      name: '',
+      firstName: '',
+      nickname: '',
+      number: 0,
+      position: { positionFull: '', positionShort: '', category: '' },
+      image: '',
+      memberSince: 2019,
+      storagePath: 'players/'
+    };
+  }
+
+  deletePlayer(teamMember: TeamMembers) {
+    this.clearArrays();
+    this.teamMembersService.deleteTeamMember(teamMember).then(() => {
+      this.editModeActive = false;
+      this.notificationService.showNotification('Spieler erfolgreich gelöscht');
+    });
   }
 }

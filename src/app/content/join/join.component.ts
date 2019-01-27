@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Join } from '../../contracts/join';
 import { JoinService } from '../../services/join.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'falkenheim-join',
@@ -16,24 +17,19 @@ export class JoinComponent implements OnInit {
     experience: false
   };
 
-  constructor(private joinService: JoinService) {}
+  constructor(private joinService: JoinService, private notificationService: NotificationService) {}
 
   ngOnInit() {}
 
   checkStatusOfElement(element: HTMLInputElement) {
-    return (
-      element.className.includes('ng-valid') ||
-      element.className.includes('ng-pristine')
-    );
+    return element.className.includes('ng-valid') || element.className.includes('ng-pristine');
   }
 
   onSubmit() {
     const dateToSubmit = new Date();
     this.joinRequestToSubmit.date.seconds = dateToSubmit.getTime() / 1000;
     this.joinService.setNewJoinRequest(this.joinRequestToSubmit).then(() => {
-      console.log(
-        'Vielen Dank für dein Interesse! Die Anfrage wurde erfolgreich versendet.'
-      );
+      this.notificationService.showNotification('Vielen Dank für dein Interesse! Die Anfrage wurde erfolgreich versendet.');
       this.clearJoinForm();
     });
   }

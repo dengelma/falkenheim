@@ -1,0 +1,71 @@
+<h2>Teammitglied bearbeiten</h2>
+<form (ngSubmit)="editPlayer.emit(teamMemberToEdit)" #teamMemberEditForm="ngForm">
+  <div class="card-information name">
+    <label class="text-input--label" for="name-edit">Nachname</label>
+    <input class="custom-input" type="text" id="name-edit" required [(ngModel)]="teamMemberToEdit.name" name="name" #name />
+  </div>
+  <div [hidden]="checkStatusOfElement(name)" class="alert alert-danger">Es muss ein Nachname eingetragen werden.</div>
+  <div class="card-information first-name">
+    <label class="text-input--label" for="first-name-edit">Vorname</label>
+    <input
+      class="custom-input"
+      type="text"
+      id="first-name-edit"
+      required
+      [(ngModel)]="teamMemberToEdit.firstName"
+      name="firstName"
+      #firstName
+    />
+  </div>
+  <div [hidden]="checkStatusOfElement(firstName)" class="alert alert-danger">Es muss ein Vorname eingetragen werden.</div>
+  <div class="card-information nickname">
+    <label class="text-input--label" for="nickname-edit">Spitzname</label>
+    <input class="custom-input" type="text" id="nickname-edit" [(ngModel)]="teamMemberToEdit.nickname" name="nickname" #nickname />
+  </div>
+  <div class="card-information number">
+    <label class="text-input--label" for="number-edit">Trikotnummer</label>
+    <input class="custom-input" type="text" id="number-edit" required [(ngModel)]="teamMemberToEdit.number" name="number" #number />
+    <div [hidden]="checkStatusOfElement(number)" class="alert alert-danger">Es muss eine Trikotnummer eingegeben werden</div>
+  </div>
+  <div class="card-information position">
+    <label class="text-input--label" for="position-edit">Position</label>
+    <select name="position-select" id="position-edit" [(ngModel)]="teamMemberToEdit.position">
+      <option *ngFor="let position of positions" [ngValue]="position"> {{ position.positionFull }} </option>
+    </select>
+  </div>
+  <div class="card-information member-since">
+    <label class="text-input--label" for="member-since-edit">Mitglied seit</label>
+    <input
+      class="custom-input"
+      type="number"
+      id="member-since-edit"
+      required
+      [(ngModel)]="teamMemberToEdit.memberSince"
+      name="memberSince"
+      #memberSince
+    />
+    <div [hidden]="checkStatusOfElement(memberSince)" class="alert alert-danger">
+      Es muss eingetragen werden, seit wann der Spieler zum Verein zugehörig ist
+    </div>
+  </div>
+  <div class="card-information image">
+    <label class="text-input--label" for="image-edit">Bild</label>
+    <input
+      class="custom-input"
+      type="file"
+      id="image-edit"
+      (change)="teamMemberToEdit.image = $event.target.files[0]"
+      name="image"
+      accept=".png,.jpg"
+      #image
+    />
+    <button (click)="teamMemberToEdit.image = ''">Vorhandenes Bild löschen</button>
+  </div>
+  <div class="container btn-container">
+    <button type="submit" class="btn-falkenheim falkenheim-submit" [class.disabled]="!teamMemberEditForm.form.valid">
+      Spieler editieren
+    </button>
+    <button (click)="editModeCanceled.emit()" type="button" class="btn-falkenheim falkenheim-submit">Abbrechen</button>
+    <button (click)="deletePlayer.emit()" type="button" class="btn-falkenheim falkenheim-submit">Löschen</button>
+  </div>
+</form>

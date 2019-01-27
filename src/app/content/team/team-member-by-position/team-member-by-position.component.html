@@ -1,0 +1,40 @@
+<div class="card" *ngIf="teamMembersByPosition.length > 0">
+  <h2>{{ position }}</h2>
+  <div class="team-members-position">
+    <div class="card card-team-member" *ngFor="let teamMember of teamMembersByPosition">
+      <ng-container *ngIf="!teamMember?.editMode; else editTeamMemberByPosition">
+        <div class="image-card">
+          <img
+            *ngIf="teamMember.image; else placeholderAvatarTeamMember"
+            class="player-image"
+            src="{{ teamMember.image }}"
+            alt="'Profilbild' {{ teamMember.firstName }}"
+          />
+          <ng-template #placeholderAvatarTeamMember>
+            <img class="player-image" src="../../../../assets/placeholders/avatar.png" alt="'Profilbild' {{ teamMember.firstName }}" />
+          </ng-template>
+          <div class="image-card__content">
+            <div class="card-information">
+              <span class="question"><strong>Wer: </strong></span> <span>{{ teamMember.firstName }}</span>
+            </div>
+            <div class="card-information" *ngIf="position !== 'Torwart'">
+              <span class="question"><strong>Position: </strong></span> <span>{{ teamMember.position.positionFull }}</span>
+            </div>
+            <div class="card-information location">
+              <span class="question"><strong>Im Verein seit: </strong></span> <span>{{ teamMember.memberSince }}</span>
+            </div>
+          </div>
+          <span (click)="activateEditMode.emit(teamMember)" *ngIf="authenticationService.isLoggedIn()" class="edit">&#x270E;</span>
+        </div>
+      </ng-container>
+      <ng-template #editTeamMemberByPosition>
+        <falkenheim-team-edit
+          [teamMemberToEdit]="teamMemberToEdit"
+          (editPlayer)="editPlayer.emit($event)"
+          (editModeCanceled)="editModeCanceled.emit(teamMember)"
+          (deletePlayer)="deletePlayer.emit(teamMember)"
+        ></falkenheim-team-edit>
+      </ng-template>
+    </div>
+  </div>
+</div>

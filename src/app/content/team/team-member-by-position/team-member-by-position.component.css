@@ -1,0 +1,44 @@
+.card {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.image-card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.image-card__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.player-image {
+  height: 30%;
+  width: 30%;
+}
+
+.special-card-team {
+  padding: 0;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.team-members-position {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.card-team-member {
+  min-width: 533px;
+  max-width: 500px;
+}
+
+.edit {
+  cursor: pointer;
+}

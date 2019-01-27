@@ -1,0 +1,25 @@
+.notification {
+  position: fixed;
+  width: 50%;
+  right: 0;
+  margin: auto;
+  left: 0;
+  top: 10%;
+  opacity: 0;
+  transition: transform 350ms ease-in-out, opacity 350ms ease-in-out;
+  transform: translateY(-350px);
+}
+
+.notification-show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.notification-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0;
+  background: #ff0012;
+  color: white;
+}

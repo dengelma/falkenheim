@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { MatchReport } from '../../contracts/match-report';
 import { AuthenticationService } from '../../services/authentication.service';
 import { MatchReportService } from '../../services/match-report.service';
+import { NotificationService } from '../../services/notification.service';
 
 export interface MatchReportSubmitData {
   // Wird noch erweitert
@@ -69,7 +70,11 @@ export class MatchReportComponent implements OnInit, OnDestroy {
   dateForForm = new Date();
   dateForEditForm: Date = new Date();
 
-  constructor(private matchReportService: MatchReportService, public authenticationService: AuthenticationService) {}
+  constructor(
+    private matchReportService: MatchReportService,
+    public authenticationService: AuthenticationService,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit() {
     this.matchReportsSubscription = this.matchReportService.getMatchReports().subscribe((result: MatchReport) => {
@@ -115,7 +120,10 @@ export class MatchReportComponent implements OnInit, OnDestroy {
       link: this.matchReportSubmitData.link
     };
     this.matchReports = [];
-    this.matchReportService.setNewMatchReport(this.matchReportToSubmit).then(() => this.clearSubmitForm());
+    this.matchReportService.setNewMatchReport(this.matchReportToSubmit).then(() => {
+      this.clearSubmitForm();
+      this.notificationService.showNotification('Neuen Spielbericht erfolgreich angelegt!');
+    });
   }
 
   onEdit(matchReport: MatchReport) {
@@ -141,6 +149,7 @@ export class MatchReportComponent implements OnInit, OnDestroy {
 
     this.matchReports = [];
     this.matchReportService.editMatchReport(this.matchReportToEdit).then(() => {
+      this.notificationService.showNotification('Spielbericht erfolgreich geändert!');
       matchReport.editMode = false;
       this.editModeActive = false;
     });

@@ -8,92 +8,60 @@
   </div>
 </div>
 <div class="team-members">
-  <div class="card" *ngIf="goalies.length > 0">
-    <h2>Torwart</h2>
-    <div class="team-members-position">
-      <div class="card card-team-member" *ngFor="let goalie of goalies">
-        <div class="image-card">
-          <img *ngIf="goalie.image" class="player-image" src="{{ goalie.image }}" alt="Profilbild Engelmann" />
-          <div class="image-card__content">
-            <div class="card-information">
-              <span class="question"><strong>Wer: </strong></span> <span>{{ goalie.firstName }}</span>
-            </div>
-            <div class="card-information location">
-              <span class="question"><strong>Im Verein seit: </strong></span> <span>{{ goalie.memberSince }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="card" *ngIf="aussen.length > 0">
-    <h2>Außen</h2>
-    <div class="team-members-position">
-      <div class="card card-team-member" *ngFor="let playerAussen of aussen">
-        <div class="image-card">
-          <img *ngIf="playerAussen.image" class="player-image" src="{{ playerAussen.image }}" alt="Profilbild Engelmann" />
-          <div class="image-card__content">
-            <div class="card-information">
-              <span class="question"><strong>Wer: </strong></span> <span>{{ playerAussen.firstName }}</span>
-            </div>
-            <div class="card-information">
-              <span class="question"><strong>Position: </strong></span> <span>{{ playerAussen.position.positionFull }}</span>
-            </div>
-            <div class="card-information location">
-              <span class="question"><strong>Im Verein seit: </strong></span> <span>{{ playerAussen.memberSince }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="card" *ngIf="rueckraum.length > 0">
-    <h2>Rückraum</h2>
-    <div class="team-members-position">
-      <div class="card card-team-member" *ngFor="let playerRueckraum of rueckraum">
-        <div class="image-card">
-          <img *ngIf="playerRueckraum.image" class="player-image" src="{{ playerRueckraum.image }}" alt="Profilbild Engelmann" />
-          <div class="image-card__content">
-            <div class="card-information">
-              <span class="question"><strong>Wer: </strong></span> <span>{{ playerRueckraum.firstName }}</span>
-            </div>
-            <div class="card-information">
-              <span class="question"><strong>Position: </strong></span> <span>{{ playerRueckraum.position.positionFull }}</span>
-            </div>
-            <div class="card-information location">
-              <span class="question"><strong>Im Verein seit: </strong></span> <span>{{ playerRueckraum.memberSince }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="card" *ngIf="kreis.length > 0">
-    <h2>Kreis</h2>
-    <div class="team-members-position">
-      <div class="card card-team-member" *ngFor="let playerKreis of kreis">
-        <div class="image-card">
-          <img *ngIf="playerKreis.image" class="player-image" src="{{ playerKreis.image }}" alt="Profilbild Engelmann" />
-          <div class="image-card__content">
-            <div class="card-information">
-              <span class="question"><strong>Wer: </strong></span> <span>{{ playerKreis.firstName }}</span>
-            </div>
-            <div class="card-information">
-              <span class="question"><strong>Position: </strong></span> <span>{{ playerKreis.position.positionFull }}</span>
-            </div>
-            <div class="card-information location">
-              <span class="question"><strong>Im Verein seit: </strong></span> <span>{{ playerKreis.memberSince }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <falkenheim-team-member-by-position
+    [teamMembersByPosition]="goalies"
+    [position]="'Torwart'"
+    [teamMemberToEdit]="teamMemberToEdit"
+    (editPlayer)="editPlayer($event)"
+    (editModeCanceled)="cancelEditMode()"
+    (deletePlayer)="deletePlayer($event)"
+    (activateEditMode)="activateEditMode($event)"
+  ></falkenheim-team-member-by-position>
+
+  <falkenheim-team-member-by-position
+    [teamMembersByPosition]="aussen"
+    [position]="'Außen'"
+    [teamMemberToEdit]="teamMemberToEdit"
+    (editPlayer)="editPlayer($event)"
+    (editModeCanceled)="cancelEditMode($event)"
+    (deletePlayer)="deletePlayer($event)"
+    (activateEditMode)="activateEditMode($event)"
+  ></falkenheim-team-member-by-position>
+
+  <falkenheim-team-member-by-position
+    [teamMembersByPosition]="rueckraum"
+    [position]="'Rückraum'"
+    [teamMemberToEdit]="teamMemberToEdit"
+    (editPlayer)="editPlayer($event)"
+    (editModeCanceled)="cancelEditMode()"
+    (deletePlayer)="deletePlayer($event)"
+    (activateEditMode)="activateEditMode($event)"
+  ></falkenheim-team-member-by-position>
+
+  <falkenheim-team-member-by-position
+    [teamMembersByPosition]="kreis"
+    [position]="'Kreis'"
+    [teamMemberToEdit]="teamMemberToEdit"
+    (editEvent)="editPlayer($event)"
+    (editModeCanceled)="cancelEditMode()"
+    (deletePlayer)="deletePlayer($event)"
+    (activateEditMode)="activateEditMode($event)"
+  ></falkenheim-team-member-by-position>
+
+  <falkenheim-team-member-by-position
+    [teamMembersByPosition]="noCategory"
+    [position]="'Noch nicht bestimmt'"
+    [teamMemberToEdit]="teamMemberToEdit"
+    (editEvent)="editPlayer($event)"
+    (editModeCanceled)="cancelEditMode()"
+    (deletePlayer)="deletePlayer($event)"
+    (activateEditMode)="activateEditMode($event)"
+  ></falkenheim-team-member-by-position>
 </div>
 
-<div class="card" *ngIf="authenticationService.isLoggedIn() && !editModeActive">
-  <h2>Neues Teammitglied</h2>
-  <form (ngSubmit)="addNewPlayer()" #matchReportForm="ngForm">
+<div class="card card-add" *ngIf="authenticationService.isLoggedIn() && !editModeActive">
+  <h2 class="header-add">Neues Teammitglied</h2>
+  <form (ngSubmit)="addNewPlayer()" #teamMemberForm="ngForm">
     <div class="card-information name">
       <label class="text-input--label" for="name">Nachname</label>
       <input class="custom-input" type="text" id="name" required [(ngModel)]="newTeamMember.name" name="name" #name />
@@ -137,10 +105,18 @@
     </div>
     <div class="card-information image">
       <label class="text-input--label" for="image">Bild</label>
-      <input class="custom-input" type="file" id="image" [(ngModel)]="newTeamMember.image" name="image" #image />
+      <input
+        class="custom-input"
+        type="file"
+        id="image"
+        (change)="newTeamMember.image = $event.target.files[0]"
+        name="image"
+        accept=".png,.jpg"
+        #image
+      />
     </div>
     <div class="container btn-container">
-      <button type="submit" class="btn-falkenheim falkenheim-submit" [class.disabled]="!matchReportForm.form.valid">
+      <button type="submit" class="btn-falkenheim falkenheim-submit" [class.disabled]="!teamMemberForm.form.valid">
         Neuen Spieler ins Team aufnehmen
       </button>
     </div>

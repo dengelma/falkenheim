@@ -5,9 +5,10 @@ export interface TeamMembers {
   nickname?: string;
   number: number;
   position?: Position;
-  image?: string;
+  image?: any;
   memberSince: number;
   editMode?: boolean;
+  storagePath: string;
 }
 
 export interface Position {

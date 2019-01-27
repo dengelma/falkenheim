@@ -173,8 +173,8 @@
   </ng-template>
 </div>
 
-<div class="card" *ngIf="authenticationService.isLoggedIn() && !editModeActive">
-  <h2>Neuer Spielbericht</h2>
+<div class="card card-add" *ngIf="authenticationService.isLoggedIn() && !editModeActive">
+  <h2 class="header-add">Neuer Spielbericht</h2>
   <form (ngSubmit)="onSubmit()" #matchReportForm="ngForm">
     <div class="card-information date">
       <label class="text-input--label" for="date">Datum</label>

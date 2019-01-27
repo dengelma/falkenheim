@@ -35,6 +35,10 @@
   transition: all 350ms ease-in-out;
 }
 
+.footer-item--link {
+  cursor: pointer;
+}
+
 .footer-item--link:hover {
   color: #ff0012;
 }

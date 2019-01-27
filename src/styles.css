@@ -35,7 +35,7 @@ h1 {
 }
 
 .btn-falkenheim {
-  width: 80%;
+  width: 100%;
   height: 50px;
   font-size: 24px;
   font-family: 'Varela Round', sans-serif;
@@ -44,8 +44,7 @@ h1 {
   border: 1px solid black;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 250ms ease-in-out, color 250ms ease-in-out,
-    border 250ms ease-in-out;
+  transition: background-color 250ms ease-in-out, color 250ms ease-in-out, border 250ms ease-in-out;
 }
 
 .btn-falkenheim:focus {
@@ -214,4 +213,15 @@ label {
   border-color: #000000;
   color: black;
   cursor: not-allowed;
+}
+
+.card-add {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-add {
+  margin-bottom: 24px;
 }
