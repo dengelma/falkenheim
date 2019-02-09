@@ -5,18 +5,16 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   linkContainer: boolean[] = [false, false];
 
-  @Input() set outsideClick(val: boolean) {
-    for (let i = 0; i <= this.linkContainer.length - 1; i++) {
-      this.linkContainer[i] = false;
-    }
+  isBurgerMenuOpen = false;
+
+  @Input() set outsideClick(value: boolean) {
+    this.isBurgerMenuOpen = false;
   }
 
   constructor() {}
-
-  ngOnInit() {}
 
   openLinkContainer(position: number) {
     for (let i = 0; i <= this.linkContainer.length - 1; i++) {

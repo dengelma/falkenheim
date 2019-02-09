@@ -120,7 +120,8 @@ export class MatchReportComponent implements OnInit, OnDestroy {
       link: this.matchReportSubmitData.link
     };
     this.matchReports = [];
-    this.matchReportService.setNewMatchReport(this.matchReportToSubmit).then(() => {
+    this.matchReportService.setNewMatchReport(this.matchReportToSubmit).then(x => {
+      console.log(x);
       this.clearSubmitForm();
       this.notificationService.showNotification('Neuen Spielbericht erfolgreich angelegt!');
     });
@@ -148,7 +149,8 @@ export class MatchReportComponent implements OnInit, OnDestroy {
     };
 
     this.matchReports = [];
-    this.matchReportService.editMatchReport(this.matchReportToEdit).then(() => {
+    this.matchReportService.editMatchReport(this.matchReportToEdit).then(x => {
+      console.log(x);
       this.notificationService.showNotification('Spielbericht erfolgreich geändert!');
       matchReport.editMode = false;
       this.editModeActive = false;
@@ -213,9 +215,17 @@ export class MatchReportComponent implements OnInit, OnDestroy {
   }
 
   generateMatchDate(date: Date, time: string): number {
+    if (date.toString().indexOf('-') > -1) {
+      const year: string = date.toString().substring(0, date.toString().indexOf('-'));
+      const month: string = date.toString().substring(date.toString().indexOf('-') + 1, date.toString().lastIndexOf('-'));
+      const day: string = date.toString().substring(date.toString().lastIndexOf('-') + 1, date.toString().length);
+      date = new Date();
+      const dateAsNumber = date.setFullYear(Number.parseInt(year), Number.parseInt(month) - 1, Number.parseInt(day));
+    }
     const hours = Number.parseInt(time.substring(0, 2));
     const minutes = Number.parseInt(time.substring(3, time.length));
-    return date.setHours(hours, minutes);
+
+    return date.setHours(hours, minutes, 0);
   }
 
   generateResult(homeGame: boolean, resultTsv: string, resultOpponent: string): string {

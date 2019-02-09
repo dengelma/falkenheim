@@ -1,14 +1,41 @@
+@media only screen and (max-width: 979px) {
+  .footer {
+    position: inherit;
+  }
+
+  .footer-container {
+    flex-direction: column;
+  }
+
+  .footer-handball__container {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (min-width: 980px) {
+  .footer {
+    position: fixed;
+    bottom: 0;
+  }
+
+  .footer-container {
+    flex-direction: row;
+  }
+
+  .footer-handball__container {
+    flex-direction: row;
+  }
+}
+
 .footer {
   background: black;
-  position: fixed;
-  bottom: 0;
   width: 100%;
 }
 
 .footer-container {
-  display: grid;
-  grid-template-areas: 'icon links placeholder';
-  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .footer-main-club__container {
@@ -17,14 +44,14 @@
   justify-content: space-evenly;
   align-items: center;
 }
+
 .footer-handball__container {
-  grid-area: placeholder;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
+
 .footer-link__container {
-  grid-area: links;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,6 +64,7 @@
 
 .footer-item--link {
   cursor: pointer;
+  margin: 8px;
 }
 
 .footer-item--link:hover {

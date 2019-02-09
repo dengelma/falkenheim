@@ -62,7 +62,12 @@
     <button (click)="teamMemberToEdit.image = ''">Vorhandenes Bild löschen</button>
   </div>
   <div class="container btn-container">
-    <button type="submit" class="btn-falkenheim falkenheim-submit" [class.disabled]="!teamMemberEditForm.form.valid">
+    <button
+      type="submit"
+      class="btn-falkenheim falkenheim-submit"
+      [disabled]="!teamMemberEditForm.form.valid"
+      [class.disabled]="!teamMemberEditForm.form.valid"
+    >
       Spieler editieren
     </button>
     <button (click)="editModeCanceled.emit()" type="button" class="btn-falkenheim falkenheim-submit">Abbrechen</button>

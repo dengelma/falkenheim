@@ -23,6 +23,7 @@ a {
   padding: 16px;
   box-shadow: 2px 2px 10px 0 gray;
   margin-bottom: 32px;
+  position: relative;
 }
 
 .card-information {
@@ -43,6 +44,7 @@ h1 {
   background-color: #ffffff;
   border: 1px solid black;
   border-radius: 5px;
+  margin: 8px 0;
   cursor: pointer;
   transition: background-color 250ms ease-in-out, color 250ms ease-in-out, border 250ms ease-in-out;
 }
@@ -65,7 +67,6 @@ h1 {
 }
 
 .custom-input {
-  width: 300px;
   border: 1px solid black;
   border-radius: 5px;
   padding: 8px;
@@ -80,23 +81,60 @@ h1 {
   user-select: none;
 }
 
-label {
-  width: 300px;
+@media only screen and (min-width: 980px) {
+  label {
+    width: 300px;
+  }
+  .custom-input {
+    width: 300px;
+  }
+
+  .card-team-member {
+    width: 48%;
+    margin: 8px;
+  }
+
+  .checkmark {
+    top: 0;
+    right: -25px;
+  }
+
+  .checkmark__container {
+    margin-bottom: 12px;
+  }
 }
 
-.container {
+@media only screen and (max-width: 979px) {
+  .card-information {
+    flex-direction: column;
+    margin: 8px 0;
+  }
+  .checkmark {
+    bottom: -25px;
+    left: 0;
+  }
+
+  .checkmark__container {
+    margin-bottom: 24px;
+  }
+
+  form {
+    min-width: 75%;
+  }
+}
+
+.checkmark__container {
   display: block;
   position: relative;
-  margin-bottom: 12px;
   cursor: pointer;
-  font-size: 22px;
+  font-size: 18px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
 
-.container input {
+.checkmark__container input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -106,8 +144,6 @@ label {
 
 .checkmark {
   position: absolute;
-  top: 0;
-  right: -25px;
   height: 25px;
   width: 25px;
   border: 1px solid black;
@@ -116,7 +152,7 @@ label {
   transition: background-color 200ms ease-in-out;
 }
 
-.container input:checked ~ .checkmark {
+.checkmark__container input:checked ~ .checkmark {
   background-color: #ff0012;
 }
 
@@ -126,11 +162,11 @@ label {
   display: none;
 }
 
-.container input:checked ~ .checkmark:after {
+.checkmark__container input:checked ~ .checkmark:after {
   display: block;
 }
 
-.container .checkmark:after {
+.checkmark__container .checkmark:after {
   left: 9px;
   top: 5px;
   width: 5px;

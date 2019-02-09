@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'falkenheim-root',
@@ -6,14 +6,11 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
   contentClicked = false;
 
-  constructor() {
-
-  }
+  constructor() {}
 
   emitClick() {
-    this.contentClicked = true;
+    this.contentClicked = !this.contentClicked;
   }
 }

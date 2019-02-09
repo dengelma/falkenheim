@@ -4,34 +4,149 @@
   z-index: 100;
 }
 
-.header-container {
-  display: grid;
-  grid-template-areas: 'icon links placeholder';
-  height: 100%;
+@media only screen and (min-width: 980px) {
+  .control-elements-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .small-size {
+    display: none;
+  }
+
+  .header-handball__container {
+    grid-area: placeholder;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 16px;
+    align-items: center;
+    color: #ffffff;
+  }
+
+  .header-link__container {
+    font-size: 24px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .custom-logo {
+    height: 110px;
+    top: 0;
+    left: 0;
+    margin: 1rem;
+    position: absolute;
+  }
+
+  .link-container {
+    cursor: pointer;
+    margin: 16px 16px;
+  }
+
+  .burger-menu {
+    display: none;
+  }
+
+  .dropdown-content {
+    background: black;
+    color: white;
+    list-style: none;
+    padding: 0 8px;
+    position: absolute;
+  }
 }
 
-.header-image__container {
-  grid-area: icon;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-.header-handball__container {
-  grid-area: placeholder;
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 16px;
-  align-items: center;
-  color: #ffffff;
-}
+@media only screen and (max-width: 979px) {
+  .control-elements-container {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    flex-direction: column;
+    background: black;
+    transition: transform 300ms ease-in-out;
+    transform: translateX(-500px);
+  }
 
-.header-link__container {
-  font-size: 24px;
-  grid-area: links;
-  padding-right: 190px;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  .image-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+
+  .header-link__container,
+  .header-handball__container {
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  .header-image__container {
+    display: none;
+  }
+
+  .custom-logo {
+    transform: scale(0.4);
+    position: absolute;
+    margin: 16px 0;
+  }
+
+  .small-size {
+    display: inline-block;
+    position: absolute;
+    z-index: 1;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 76px;
+    width: 100px;
+  }
+
+  .dropdown-content {
+    padding: 0px;
+    list-style: none;
+  }
+
+  .link-container {
+    cursor: pointer;
+    margin: 8px 16px;
+  }
+
+  .burger-menu {
+    display: inline-block;
+    cursor: pointer;
+    margin: 16px;
+    transition: transform 300ms ease-in-out, width 300ms ease-in-out;
+  }
+
+  .burger-menu--open {
+    transform: rotateZ(180deg);
+  }
+
+  .bar {
+    width: 35px;
+    height: 5px;
+    background-color: white;
+    margin: 6px 0;
+    transition: 0.4s;
+  }
+
+  .bar1 {
+    transform: rotateZ(45deg) translateX(15px) translateY(-9px);
+    width: 20px;
+  }
+
+  .bar3 {
+    transform: rotateZ(-45deg) translateX(15px) translateY(9px);
+    width: 20px;
+  }
+
+  .control-elements-container--open {
+    transform: translateX(0);
+  }
 }
 
 .header-item {
@@ -43,27 +158,8 @@
   color: #ff0012;
 }
 
-.custom-logo {
-  height: 110px;
-  top: 0;
-  left: 0;
-  margin: 1rem;
-  position: absolute;
-}
-
 .active {
   color: #ff0012;
-}
-
-/*.link-container:hover > div .link-container:hover a {
-  color: #ff0012;
-  border-color: #ff0012;
-  cursor: pointer;
-}*/
-
-.link-container {
-  cursor: pointer;
-  margin: 16px 8px;
 }
 
 .dropdown {
@@ -73,20 +169,13 @@
   position: absolute;
   border-left: 0;
   border-bottom: 0;
+  margin-left: 8px;
   transform: rotateZ(135deg) translateY(-4px) translateX(5px);
   display: inline;
   transition: all 350ms ease-in-out;
 }
 .dropdown--open {
   transform: rotateX(170deg) rotateZ(135deg) translateY(10px) translateX(-9px);
-}
-
-.dropdown-content {
-  background: black;
-  color: white;
-  list-style: none;
-  padding: 0 8px;
-  position: absolute;
 }
 
 li {

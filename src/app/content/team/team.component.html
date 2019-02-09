@@ -116,7 +116,12 @@
       />
     </div>
     <div class="container btn-container">
-      <button type="submit" class="btn-falkenheim falkenheim-submit" [class.disabled]="!teamMemberForm.form.valid">
+      <button
+        type="submit"
+        class="btn-falkenheim falkenheim-submit"
+        [disabled]="!teamMemberForm.form.valid"
+        [class.disabled]="!teamMemberForm.form.valid"
+      >
         Neuen Spieler ins Team aufnehmen
       </button>
     </div>

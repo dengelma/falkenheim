@@ -1,6 +1,6 @@
 <div class="card" *ngFor="let matchReport of matchReports">
   <span *ngIf="!matchReport.editMode; else editMatchReport">
-    <h2 class="headline">
+    <h2>
       Spielbericht vom {{ matchReport.date | date: 'medium' }}
       <span (click)="activateEditMode(matchReport)" *ngIf="authenticationService.isLoggedIn()" class="edit">&#x270E;</span>
     </h2>
@@ -164,7 +164,12 @@
         <input class="custom-input" type="text" id="link-edit" name="linkEdit" [(ngModel)]="matchReportEditData.link" />
       </div>
       <div class="container btn-container">
-        <button type="submit" class="btn-falkenheim falkenheim-submit" [class.disabled]="!matchReportEditForm.form.valid">
+        <button
+          type="submit"
+          class="btn-falkenheim falkenheim-submit"
+          [disabled]="!matchReportEditForm.form.valid"
+          [class.disabled]="!matchReportEditForm.form.valid"
+        >
           Spielbericht ändern
         </button>
         <button (click)="cancelEditMode(matchReport)" type="button" class="btn-falkenheim falkenheim-submit">Abbrechen</button>
@@ -289,7 +294,12 @@
       <input class="custom-input" type="text" id="link" name="supervisor" [(ngModel)]="matchReportSubmitData.link" />
     </div>
     <div class="container btn-container">
-      <button type="submit" class="btn-falkenheim falkenheim-submit" [class.disabled]="!matchReportForm.form.valid">
+      <button
+        type="submit"
+        class="btn-falkenheim falkenheim-submit"
+        [disabled]="!matchReportForm.form.valid"
+        [class.disabled]="!matchReportForm.form.valid"
+      >
         Neuen Spielbericht einstellen
       </button>
     </div>

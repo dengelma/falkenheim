@@ -14,14 +14,12 @@
   min-height: 250px;
 }
 
-.headline {
-  position: relative;
-}
-
 .edit {
   cursor: pointer;
   position: absolute;
   right: 0;
+  top: 0;
+  margin-right: 16px;
 }
 
 .radio-buttons {

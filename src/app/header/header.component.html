@@ -1,32 +1,44 @@
 <div class="header">
   <div class="header-container">
-    <div class="header-image__container">
-      <a [routerLink]="''"> <img class="custom-logo" src="../../assets/img/logo_tsv_falkenheim.png" alt="Falkenheim Logo" /> </a>
+    <div class="burger-menu" [class.burger-menu--open]="isBurgerMenuOpen" (click)="isBurgerMenuOpen = !isBurgerMenuOpen">
+      <div class="bar" [class.bar1]="isBurgerMenuOpen"></div>
+      <div class="bar"></div>
+      <div class="bar" [class.bar3]="isBurgerMenuOpen"></div>
     </div>
-    <div class="header-link__container">
-      <a [routerLink]="'/home'" class="link-container header-item header-item--link" [routerLinkActive]="['active']">Home</a>
-      <a [routerLink]="'/team'" class="link-container header-item header-item--link" [routerLinkActive]="['active']">Team</a>
-      <div class="link-container dropdown-container" (click)="openLinkContainer(0)">
-        <a class="link-container header-item" [routerLinkActive]="['active']">Saison</a>
-        <div class="dropdown" [class.dropdown--open]="linkContainer[0]"></div>
-        <ul class="dropdown-content" [class.display-none]="!linkContainer[0]">
-          <li><a [routerLink]="'/season/standings'" class="header-item header-item--link" [routerLinkActive]="['active']">Tabelle</a></li>
-          <li><a [routerLink]="'/season/fixtures'" class="header-item header-item--link" [routerLinkActive]="['active']">Spielplan</a></li>
-          <li>
-            <a [routerLink]="'/season/match-report'" class="header-item header-item--link" [routerLinkActive]="['active']">Spielberichte</a>
-          </li>
-        </ul>
-      </div>
-      <div class="link-container" (click)="openLinkContainer(1)">
-        <a [routerLink]="'/history'" class="header-item header-item--link" [routerLinkActive]="['active']">Sponsoren & Partner</a>
-        <!-- <div class="dropdown" [class.dropdown--open]="linkContainer[1]"></div>
-        <ul class="dropdown-content" [class.display-none]="!linkContainer[1]">
-
-        </ul> -->
-      </div>
+    <div class="header-image__container small-size">
+      <a class="image-link" [routerLink]="''">
+        <img class="custom-logo" src="../../assets/img/logo_tsv_falkenheim.png" alt="Falkenheim Logo" />
+      </a>
     </div>
-    <div class="header-handball__container">
-      <a [routerLink]="'/join'" class="header-item header-item--link" [routerLinkActive]="['active']">Dein Weg ins Team</a>
+    <div class="control-elements-container" [class.control-elements-container--open]="isBurgerMenuOpen">
+      <div class="header-image__container">
+        <a [routerLink]="''"> <img class="custom-logo" src="../../assets/img/logo_tsv_falkenheim.png" alt="Falkenheim Logo" /> </a>
+      </div>
+      <div class="header-link__container">
+        <a [routerLink]="'/home'" class="link-container header-item header-item--link" [routerLinkActive]="['active']">Home</a>
+        <a [routerLink]="'/team'" class="link-container header-item header-item--link" [routerLinkActive]="['active']">Team</a>
+        <div class="link-container dropdown-container" (click)="openLinkContainer(0)">
+          <a class="header-item" [routerLinkActive]="['active']">Saison</a>
+          <div class="dropdown" [class.dropdown--open]="linkContainer[0]"></div>
+          <ul class="dropdown-content" [class.display-none]="!linkContainer[0]">
+            <li><a [routerLink]="'/season/standings'" class="header-item header-item--link" [routerLinkActive]="['active']">Tabelle</a></li>
+            <li>
+              <a [routerLink]="'/season/fixtures'" class="header-item header-item--link" [routerLinkActive]="['active']">Spielplan</a>
+            </li>
+            <li>
+              <a [routerLink]="'/season/match-report'" class="header-item header-item--link" [routerLinkActive]="['active']"
+                >Spielberichte</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="link-container" (click)="openLinkContainer(1)">
+          <a [routerLink]="'/history'" class="header-item header-item--link" [routerLinkActive]="['active']">Sponsoren & Partner</a>
+        </div>
+      </div>
+      <div class="link-container header-handball__container">
+        <a [routerLink]="'/join'" class="header-item header-item--link" [routerLinkActive]="['active']">Dein Weg ins Team</a>
+      </div>
     </div>
   </div>
 </div>

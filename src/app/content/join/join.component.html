@@ -7,7 +7,7 @@
     <span>Jeden Montag um 20Uhr (außer in den Schulferien, weil Halle geschlossen) </span>
   </div>
   <div class="card-information location">
-    <span class="question"><strong>Wo trainieren wir:</strong></span> <span>Geschwister-Schöll Realschule Nürnberg</span>
+    <span class="question"><strong>Wo trainieren wir:</strong></span> <span>Geschwister-Scholl Realschule Nürnberg</span>
   </div>
   <div class="card-information more-information">
     <span class="question"><strong>Weitere Informationen:</strong></span>
@@ -29,14 +29,19 @@
     </div>
     <div [hidden]="checkStatusOfElement(mail)" class="alert alert-danger">Es muss eine E-Mail-Adresse eingetragen werden.</div>
     <div class="card-information experience">
-      <label class="container"
+      <label class="checkmark__container"
         >Hast du bereits Erfahrung?
         <input type="checkbox" [(ngModel)]="joinRequestToSubmit.experience" id="experience-checkbox" name="checkbox" />
         <span class="checkmark"></span>
       </label>
     </div>
     <div class="container btn-container">
-      <button class="btn-falkenheim falkenheim-submit" type="submit" [class.disabled]="!matchReportForm.form.valid">
+      <button
+        class="btn-falkenheim falkenheim-submit"
+        type="submit"
+        [disabled]="!matchReportForm.form.valid"
+        [class.disabled]="!matchReportForm.form.valid"
+      >
         Falkenheimer werden
       </button>
     </div>
