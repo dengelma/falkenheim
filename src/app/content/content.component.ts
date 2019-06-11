@@ -1,18 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'falkenheim-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css']
 })
-export class ContentComponent implements OnInit {
-
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
-
-
-}
+export class ContentComponent {}

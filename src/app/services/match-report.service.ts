@@ -9,7 +9,7 @@ import { MatchReport } from '../contracts/match-report';
 export class MatchReportService {
   constructor(private db: AngularFirestore) {}
 
-  getMatchReports(): Observable<MatchReport> {
+  public getMatchReports(): Observable<MatchReport> {
     return this.db
       .collection<MatchReport>('match-reports')
       .snapshotChanges()
@@ -31,13 +31,11 @@ export class MatchReportService {
       );
   }
 
-  setNewMatchReport(
-    matchReport: MatchReport
-  ): Promise<firebase.firestore.DocumentReference> {
+  public setNewMatchReport(matchReport: MatchReport): Promise<firebase.firestore.DocumentReference> {
     return this.db.collection<MatchReport>('match-reports').add(matchReport);
   }
 
-  editMatchReport(matchReport: MatchReport): Promise<void> {
+  public editMatchReport(matchReport: MatchReport): Promise<void> {
     return this.db
       .collection<MatchReport>('match-reports')
       .doc(matchReport.id)

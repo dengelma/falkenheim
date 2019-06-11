@@ -43,3 +43,7 @@
     width: 100%;
   }
 }
+
+.question {
+  min-width: 7rem;
+}

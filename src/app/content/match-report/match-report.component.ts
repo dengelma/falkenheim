@@ -76,7 +76,7 @@ export class MatchReportComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService
   ) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.matchReportsSubscription = this.matchReportService.getMatchReports().subscribe((result: MatchReport) => {
       this.matchReports.push(result);
       this.matchReports = this.matchReports.sort((matchReportA, matchReportB) => {
@@ -91,15 +91,15 @@ export class MatchReportComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.matchReportsSubscription.unsubscribe();
   }
 
-  checkStatusOfElement(element: HTMLInputElement) {
+  public checkStatusOfElement(element: HTMLInputElement): boolean {
     return element.className.includes('ng-valid') || element.className.includes('ng-pristine');
   }
 
-  onSubmit() {
+  public onSubmit(): void {
     const dateAsMiliseconds = this.generateMatchDate(this.matchReportSubmitData.date, this.matchReportSubmitData.time);
     const match = this.generateMatchString(this.matchReportSubmitData.homeGame, this.matchReportSubmitData.opponent);
 
@@ -157,7 +157,7 @@ export class MatchReportComponent implements OnInit, OnDestroy {
     });
   }
 
-  activateEditMode(matchReport: MatchReport) {
+  public activateEditMode(matchReport: MatchReport): void {
     this.matchReportToEdit = matchReport;
     this.editModeActive = true;
     this.matchReports.forEach((report: MatchReport) => {
@@ -177,7 +177,7 @@ export class MatchReportComponent implements OnInit, OnDestroy {
     this.matchReportEditData.link = matchReport.link;
   }
 
-  cancelEditMode(matchReport: MatchReport) {
+  public cancelEditMode(matchReport: MatchReport): void {
     this.editModeActive = false;
     this.dateForEditForm = new Date();
     matchReport.editMode = false;
@@ -194,7 +194,7 @@ export class MatchReportComponent implements OnInit, OnDestroy {
     };
   }
 
-  clearSubmitForm() {
+  private clearSubmitForm(): void {
     this.matchReportToSubmit = {
       date: new Date().getSeconds(),
       match: '',

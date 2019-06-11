@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { TeamMembers, Position } from '../../../contracts/team-members';
-import { TeamMembersService } from '../../../services/team-members.service';
+import { Position, TeamMembers } from '../../../contracts/team-members';
 
 export const positions: Position[] = [
   {
@@ -46,20 +45,16 @@ export const positions: Position[] = [
   templateUrl: './team-edit.component.html',
   styleUrls: ['./team-edit.component.css']
 })
-export class TeamEditComponent implements OnInit {
+export class TeamEditComponent {
   @Input() teamMemberToEdit: TeamMembers;
 
-  @Output() editPlayer: EventEmitter<TeamMembers> = new EventEmitter();
-  @Output() editModeCanceled: EventEmitter<void> = new EventEmitter();
-  @Output() deletePlayer: EventEmitter<void> = new EventEmitter();
+  @Output() editPlayer = new EventEmitter<TeamMembers>();
+  @Output() editModeCanceled = new EventEmitter<void>();
+  @Output() deletePlayer = new EventEmitter<void>();
 
-  positions = positions;
+  public positions = positions;
 
-  constructor() {}
-
-  ngOnInit() {}
-
-  checkStatusOfElement(element: HTMLInputElement) {
+  public checkStatusOfElement(element: HTMLInputElement): boolean {
     return element.className.includes('ng-valid') || element.className.includes('ng-pristine');
   }
 }

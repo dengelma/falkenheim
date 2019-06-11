@@ -1,13 +1,14 @@
-import { AuthenticationService } from './../../../services/authentication.service';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { TeamMembers } from '../../../contracts/team-members';
+import { AuthenticationService } from './../../../services/authentication.service';
 
 @Component({
   selector: 'falkenheim-team-member-by-position',
   templateUrl: './team-member-by-position.component.html',
   styleUrls: ['./team-member-by-position.component.css']
 })
-export class TeamMemberByPositionComponent implements OnInit {
+export class TeamMemberByPositionComponent {
   @Input() position: string;
   @Input() teamMembersByPosition: TeamMembers[];
   @Input() teamMemberToEdit: TeamMembers;
@@ -19,5 +20,4 @@ export class TeamMemberByPositionComponent implements OnInit {
 
   constructor(public authenticationService: AuthenticationService) {}
 
-  ngOnInit() {}
 }

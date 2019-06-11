@@ -1,12 +1,12 @@
-import { NotificationService } from './../../services/notification.service';
-import { StorageService } from './../../services/storage.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from 'angularfire2/storage';
+import { Observable, Subscription } from 'rxjs';
 
 import { Position, TeamMembers } from '../../contracts/team-members';
 import { AuthenticationService } from '../../services/authentication.service';
 import { TeamMembersService } from '../../services/team-members.service';
-import { AngularFireUploadTask, AngularFireStorageReference, AngularFireStorage } from 'angularfire2/storage';
+import { NotificationService } from './../../services/notification.service';
+import { StorageService } from './../../services/storage.service';
 
 export const positions: Position[] = [
   {
@@ -109,15 +109,15 @@ export class TeamComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.teamMemberSubscription.unsubscribe();
   }
 
-  checkStatusOfElement(element: HTMLInputElement) {
+  public checkStatusOfElement(element: HTMLInputElement): boolean {
     return element.className.includes('ng-valid') || element.className.includes('ng-pristine');
   }
 
-  addNewPlayer() {
+  public addNewPlayer(): void {
     this.clearArrays();
     this.teamMembersService.addNewTeamMember(this.newTeamMember).then(() => {
       this.clearAddPlayerForm();
@@ -125,7 +125,7 @@ export class TeamComponent implements OnInit, OnDestroy {
     });
   }
 
-  clearAddPlayerForm() {
+  private clearAddPlayerForm(): void {
     this.newTeamMember = {
       name: '',
       firstName: '',
@@ -138,7 +138,7 @@ export class TeamComponent implements OnInit, OnDestroy {
     };
   }
 
-  checkCategory(teamMember: TeamMembers) {
+  public checkCategory(teamMember: TeamMembers): void {
     if (teamMember.position) {
       switch (teamMember.position.category) {
         case 'Torwart':
@@ -159,7 +159,7 @@ export class TeamComponent implements OnInit, OnDestroy {
     }
   }
 
-  activateEditMode(teamMember: TeamMembers) {
+  public activateEditMode(teamMember: TeamMembers): void {
     teamMember.editMode = true;
     this.teamMemberToEdit = teamMember;
     this.editModeActive = true;
@@ -178,7 +178,7 @@ export class TeamComponent implements OnInit, OnDestroy {
     this.teamMemberToEdit.position = teamMember.position;
   }
 
-  clearArrays() {
+  private clearArrays(): void {
     this.teamMembers = [];
     this.goalies = [];
     this.aussen = [];
@@ -187,7 +187,7 @@ export class TeamComponent implements OnInit, OnDestroy {
     this.noCategory = [];
   }
 
-  editPlayer(teamMember: TeamMembers) {
+  public editPlayer(teamMember: TeamMembers): void {
     this.editModeActive = false;
     teamMember.editMode = false;
     this.clearTeamMemberToEdit();
@@ -197,13 +197,13 @@ export class TeamComponent implements OnInit, OnDestroy {
     });
   }
 
-  cancelEditMode(teamMember: TeamMembers) {
+  public cancelEditMode(teamMember: TeamMembers): void {
     this.editModeActive = false;
     teamMember.editMode = false;
     this.clearTeamMemberToEdit();
   }
 
-  clearTeamMemberToEdit() {
+  public clearTeamMemberToEdit(): void {
     this.teamMemberToEdit = {
       name: '',
       firstName: '',
@@ -216,7 +216,7 @@ export class TeamComponent implements OnInit, OnDestroy {
     };
   }
 
-  deletePlayer(teamMember: TeamMembers) {
+  public deletePlayer(teamMember: TeamMembers): void {
     this.clearArrays();
     this.teamMembersService.deleteTeamMember(teamMember).then(() => {
       this.editModeActive = false;
