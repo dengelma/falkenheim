@@ -15,30 +15,19 @@ export class LoginComponent {
     password: ''
   };
 
-  constructor(
-    private authenticationService: AuthenticationService,
-    private location: Location
-  ) {}
+  constructor(private authenticationService: AuthenticationService, private location: Location) {}
 
-  login() {
-    this.authenticationService
-      .signInEmailPassword(
-        this.loginCredentials.mail,
-        this.loginCredentials.password
-      )
-      .then(result => {
-        if (result) {
-          this.location.back();
-        } else {
-          console.log('Das war wohl nix...');
-        }
-      });
+  public login(): void {
+    this.authenticationService.signInEmailPassword(this.loginCredentials.mail, this.loginCredentials.password).then(result => {
+      if (result) {
+        this.location.back();
+      } else {
+        console.log('Das war wohl nix...');
+      }
+    });
   }
 
-  checkStatusOfElement(element: HTMLInputElement) {
-    return (
-      element.className.includes('ng-valid') ||
-      element.className.includes('ng-pristine')
-    );
+  public checkStatusOfElement(element: HTMLInputElement): boolean {
+    return element.className.includes('ng-valid') || element.className.includes('ng-pristine');
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Join } from '../../contracts/join';
 import { JoinService } from '../../services/join.service';
@@ -9,7 +9,7 @@ import { NotificationService } from '../../services/notification.service';
   templateUrl: './join.component.html',
   styleUrls: ['./join.component.css']
 })
-export class JoinComponent implements OnInit {
+export class JoinComponent {
   joinRequestToSubmit: Join = {
     date: { seconds: new Date().getSeconds() },
     name: '',
@@ -19,13 +19,11 @@ export class JoinComponent implements OnInit {
 
   constructor(private joinService: JoinService, private notificationService: NotificationService) {}
 
-  ngOnInit() {}
-
-  checkStatusOfElement(element: HTMLInputElement) {
+  public checkStatusOfElement(element: HTMLInputElement): boolean {
     return element.className.includes('ng-valid') || element.className.includes('ng-pristine');
   }
 
-  onSubmit() {
+  public onSubmit(): void {
     const dateToSubmit = new Date();
     this.joinRequestToSubmit.date.seconds = dateToSubmit.getTime() / 1000;
     this.joinService.setNewJoinRequest(this.joinRequestToSubmit).then(() => {
@@ -34,7 +32,7 @@ export class JoinComponent implements OnInit {
     });
   }
 
-  clearJoinForm() {
+  private clearJoinForm(): void {
     this.joinRequestToSubmit = {
       date: { seconds: new Date().getSeconds() },
       name: '',

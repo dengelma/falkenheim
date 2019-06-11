@@ -207,14 +207,14 @@ export class MatchReportComponent implements OnInit, OnDestroy {
     };
   }
 
-  generateMatchString(homeGame: boolean, opponent: string): string {
+  public generateMatchString(homeGame: boolean, opponent: string): string {
     if (homeGame) {
       return `TSV Herren - ${opponent}`;
     }
     return `${opponent} - TSV Herren`;
   }
 
-  generateMatchDate(date: Date, time: string): number {
+  public generateMatchDate(date: Date, time: string): number {
     if (date.toString().indexOf('-') > -1) {
       const year: string = date.toString().substring(0, date.toString().indexOf('-'));
       const month: string = date.toString().substring(date.toString().indexOf('-') + 1, date.toString().lastIndexOf('-'));
@@ -228,7 +228,7 @@ export class MatchReportComponent implements OnInit, OnDestroy {
     return date.setHours(hours, minutes, 0);
   }
 
-  generateResult(homeGame: boolean, resultTsv: string, resultOpponent: string): string {
+  public generateResult(homeGame: boolean, resultTsv: string, resultOpponent: string): string {
     if (homeGame) {
       return `${resultTsv}:${resultOpponent}`;
     } else {
@@ -236,7 +236,7 @@ export class MatchReportComponent implements OnInit, OnDestroy {
     }
   }
 
-  checkHomeGame(): void {
+  public checkHomeGame(): void {
     if (this.matchReportToEdit.match.startsWith('TSV Herren')) {
       this.matchReportEditData.homeGame = true;
       this.matchReportEditData.opponent = this.matchReportToEdit.match.substring(
@@ -259,14 +259,14 @@ export class MatchReportComponent implements OnInit, OnDestroy {
     }
   }
 
-  getTime(): string {
+  public getTime(): string {
     const hours = new Date(this.matchReportToEdit.date).getHours();
     const minutes = new Date(this.matchReportToEdit.date).getMinutes();
 
     return `${this.parseTime(hours)}:${this.parseTime(minutes)}`;
   }
 
-  parseTime(time: number): string {
+  private parseTime(time: number): string {
     if (time <= 9) {
       return `0${time}`;
     } else {
